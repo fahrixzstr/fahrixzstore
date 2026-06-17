@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Referral - FahriXZ Store</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/logo.svg">
+  <style>
+    .ref-header { background: linear-gradient(135deg, #ff6b6b, #ffa500); padding: 40px 20px; text-align: center; position: relative; overflow: hidden; }
+    .ref-header::before { content: ''; position: absolute; inset: 0; background: url('assets/image/banner/banner1.jpg') center/cover; opacity: 0.2; }
+    .ref-header h1 { position: relative; z-index: 2; font-size: 1.5rem; font-weight: 700; }
+    .ref-header p { position: relative; z-index: 2; font-size: 13px; opacity: 0.9; margin-top: 5px; }
+    .ref-container { padding: 20px; max-width: 600px; margin: 0 auto; }
+    .ref-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-xl); padding: 24px; margin-bottom: 16px; }
+    .ref-card h3 { font-size: 14px; font-weight: 600; margin-bottom: 12px; color: var(--text-secondary); }
+    .ref-code-box { display: flex; gap: 10px; margin-bottom: 16px; }
+    .ref-code-box input { flex: 1; padding: 12px 16px; background: var(--bg-glass); border: 1px dashed var(--border-accent); border-radius: var(--radius-md); font-size: 16px; font-weight: 700; text-align: center; color: var(--primary); letter-spacing: 1px; }
+    .ref-code-box button { padding: 12px 20px; background: var(--gradient-primary); border: none; border-radius: var(--radius-md); color: var(--text-inverse); font-weight: 600; font-size: 13px; cursor: pointer; transition: var(--transition-base); }
+    .ref-code-box button:hover { transform: scale(1.02); box-shadow: var(--shadow-glow); }
+    .ref-link-box { display: flex; gap: 10px; margin-bottom: 16px; }
+    .ref-link-box input { flex: 1; padding: 10px 14px; background: var(--bg-glass); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); font-size: 12px; color: var(--text-secondary); }
+    .ref-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .ref-actions button { padding: 12px; border-radius: var(--radius-md); font-weight: 600; font-size: 12px; cursor: pointer; transition: var(--transition-base); display: flex; align-items: center; justify-content: center; gap: 6px; }
+    .ref-actions .btn-copy { background: var(--bg-glass); border: 1px solid var(--border-accent); color: var(--primary); }
+    .ref-actions .btn-copy:hover { background: var(--primary); color: var(--text-inverse); }
+    .ref-actions .btn-share { background: var(--gradient-primary); border: none; color: var(--text-inverse); }
+    .ref-actions .btn-share:hover { transform: scale(1.02); box-shadow: var(--shadow-glow); }
+    .ref-actions .btn-wd { background: var(--bg-glass); border: 1px solid var(--border-subtle); color: var(--text-primary); }
+    .ref-actions .btn-wd:hover { background: var(--bg-glass-hover); }
+    .ref-actions .btn-snK { background: none; border: 1px solid var(--border-subtle); color: var(--text-secondary); }
+    .ref-actions .btn-snK:hover { color: var(--primary); }
+    .ref-promo { background: linear-gradient(135deg, rgba(255,107,107,0.1), rgba(255,165,0,0.1)); border: 1px solid rgba(255,107,107,0.3); border-radius: var(--radius-lg); padding: 16px; margin-bottom: 16px; }
+    .ref-promo h4 { font-size: 14px; margin-bottom: 8px; }
+    .ref-promo p { font-size: 13px; color: var(--text-secondary); }
+    .ref-history-item { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--border-subtle); }
+    .ref-history-item:last-child { border-bottom: none; }
+    .ref-history-item .name { font-size: 14px; font-weight: 500; }
+    .ref-history-item .date { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+    .ref-history-item .reward { font-size: 14px; font-weight: 700; color: var(--success); }
+    .ref-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+    .ref-stat { text-align: center; padding: 16px; background: var(--bg-glass); border-radius: var(--radius-lg); }
+    .ref-stat .value { font-size: 20px; font-weight: 700; color: var(--primary); }
+    .ref-stat .label { font-size: 11px; color: var(--text-secondary); margin-top: 4px; }
+    .empty-state { text-align: center; padding: 40px 20px; }
+    .empty-state .icon { font-size: 40px; margin-bottom: 12px; opacity: 0.5; }
+    .empty-state h3 { font-size: 14px; color: var(--text-secondary); }
+    .back-btn-nav { background: none; border: none; color: var(--text-primary); cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 14px; }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar glass-nav">
+    <div class="navbar-brand">
+      <button onclick="history.back()" class="back-btn-nav">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Referral
+      </button>
+    </div>
+    <div class="nav-icons">
+      <a href="s&k.html" style="font-size:12px;color:var(--text-secondary);text-decoration:none">S&K</a>
+    </div>
+  </nav>
+
+  <!-- Header Banner -->
+  <div class="ref-header">
+    <h1>🎉 Ajak Teman</h1>
+    <p>Dapatkan 4 ribu dari setiap misi cuan teman yang berhasil</p>
+  </div>
+
+  <div class="ref-container">
+    <!-- Promo -->
+    <div class="ref-promo">
+      <h4>💰 Program Referral</h4>
+      <p>Bagikan kode referral ke temanmu. Setiap teman yang mendaftar dan menyelesaikan misi, kamu dapat komisi!</p>
+    </div>
+
+    <!-- Stats -->
+    <div class="ref-stats">
+      <div class="ref-stat">
+        <div class="value" id="refTotal">0</div>
+        <div class="label">Total Ajakan</div>
+      </div>
+      <div class="ref-stat">
+        <div class="value" id="refSuccess">0</div>
+        <div class="label">Berhasil</div>
+      </div>
+      <div class="ref-stat">
+        <div class="value" id="refEarnings">Rp0</div>
+        <div class="label">Komisi</div>
+      </div>
+    </div>
+
+    <!-- Referral Code -->
+    <div class="ref-card">
+      <h3>📋 Kode Referral</h3>
+      <div class="ref-code-box">
+        <input type="text" id="referralCode" readonly>
+        <button onclick="copyReferralCode()">📋 Salin</button>
+      </div>
+      <h3>🔗 Link Referral</h3>
+      <div class="ref-link-box">
+        <input type="text" id="referralLink" readonly>
+      </div>
+      <div class="ref-actions">
+        <button class="btn-copy" onclick="copyReferralLink()">📋 Copy Link</button>
+        <button class="btn-share" onclick="shareReferral()">📤 Share</button>
+        <button class="btn-wd" onclick="withdrawReferral()">💰 Tarik</button>
+        <button class="btn-snK" onclick="location.href='s&k.html'">📜 S&K</button>
+      </div>
+    </div>
+
+    <!-- History -->
+    <div class="ref-card">
+      <h3>📊 Riwayat Ajakan</h3>
+      <div id="referralHistory">
+        <div class="empty-state">
+          <div class="icon">📭</div>
+          <h3>Belum ada ajakan</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer style="padding:30px 20px;text-align:center;border-top:1px solid var(--border-subtle);margin-bottom:60px">
+    <p style="font-size:12px;color:var(--text-muted)">&copy; 2025 FahriXZ Store</p>
+  </footer>
+
+  <!-- Bottom Nav -->
+  <nav class="bottom-nav">
+    <a href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Home</span></a>
+    <a href="profil.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Profil</span></a>
+  </nav>
+
+  <!-- Toast -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-database.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+
+    // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyDjSUSuUWl6GOh_vJ-GnYV1tvguv0_pRXI",
+    authDomain: "fahrixzstore.firebaseapp.com",
+    databaseURL: "https://fahrixzstore-default-rtdb.firebaseio.com",
+    projectId: "fahrixzstore",
+    storageBucket: "fahrixzstore.firebasestorage.app",
+    messagingSenderId: "1070736619563",
+    appId: "1:1070736619563:web:735cdd57d5c90373e1526e",
+    measurementId: "G-H7QL79SSMX"
+    };
+
+    // Generate or get referral code
+    function getReferralCode() {
+      let code = localStorage.getItem('myReferralCode');
+      if (!code) {
+        code = 'FXZ' + Math.random().toString(36).substring(2, 8).toUpperCase();
+        localStorage.setItem('myReferralCode', code);
+      }
+      return code;
+    }
+
+    const myCode = getReferralCode();
+    const baseUrl = window.location.origin + window.location.pathname.replace('referral.html', '');
+    const myLink = baseUrl + 'register.html?ref=' + myCode;
+
+    document.getElementById('referralCode').value = myCode;
+    document.getElementById('referralLink').value = myLink;
+
+    // Referral functions
+    window.copyReferralCode = function() {
+      copyToClipboard(myCode, 'Kode referral disalin!');
+    };
+
+    window.copyReferralLink = function() {
+      copyToClipboard(myLink, 'Link referral disalin!');
+    };
+
+    window.shareReferral = async function() {
+      const shareData = {
+        title: 'FahriXZ Store - Referral',
+        text: `Gabung ke website Fahrixz Store dengan kode referral ku ${myCode}! Dapatkan bonus menarik!`,
+        url: myLink
+      };
+      await shareContent(shareData);
+    };
+
+    window.withdrawReferral = function() {
+      showToast('Fitur penarikan sedang dalam pengembangan', 'info');
+    };
+
+    // Firebase - load referral history
+    try {
+      const app = initializeApp(firebaseConfig);
+      const db = getDatabase(app);
+      const auth = getAuth(app);
+
+      // Load invited users from Firebase (real-time)
+      const invitedRef = ref(db, 'referrals/' + myCode + '/invited');
+      onValue(invitedRef, (snapshot) => {
+        const historyEl = document.getElementById('referralHistory');
+
+        if (!snapshot.exists()) {
+          historyEl.innerHTML = `
+            <div class="empty-state">
+              <div class="icon">📭</div>
+              <h3>Belum ada ajakan</h3>
+              <p style="font-size:12px;color:var(--text-muted);margin-top:8px">Bagikan link referralmu untuk mulai mengajak teman</p>
+            </div>`;
+          return;
+        }
+
+        const data = snapshot.val();
+        const invitedList = Object.values(data);
+
+        // Update stats
+        document.getElementById('refTotal').textContent = invitedList.length;
+        const successCount = invitedList.filter(u => u.status === 'success').length;
+        document.getElementById('refSuccess').textContent = successCount;
+        document.getElementById('refEarnings').textContent = 'Rp' + (successCount * 4000).toLocaleString('id-ID');
+
+        // Render history
+        if (invitedList.length > 0) {
+          historyEl.innerHTML = invitedList.map(inv => `
+            <div class="ref-history-item">
+              <div>
+                <div class="name">${inv.name || 'Pengguna'}</div>
+                <div class="date">${inv.date || '-'}</div>
+              </div>
+              <div class="reward">${inv.status === 'success' ? '+Rp4.000' : 'Menunggu'}</div>
+            </div>
+          `).join('');
+        }
+      });
+
+    } catch (error) {
+      console.error('Firebase error:', error);
+    }
+  </script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('pwa/sw.js').then(r => console.log('SW registered')).catch(e => console.log('SW failed'));
+    }
+  </script>
+</body>
+</html>

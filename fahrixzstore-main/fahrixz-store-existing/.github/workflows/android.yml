@@ -1,0 +1,16 @@
+name: Deploy Static Site
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Deploy
+        run: echo "No build needed - static site"

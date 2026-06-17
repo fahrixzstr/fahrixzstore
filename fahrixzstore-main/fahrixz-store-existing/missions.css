@@ -1,0 +1,461 @@
+body{
+
+  margin:0;
+
+  background:#f5f5f5;
+
+  font-family:'Poppins',sans-serif;
+
+}
+
+.top-header{
+
+  background:#7378ff;
+
+  padding:20px;
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+}
+
+.logo-wrap{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:10px;
+
+  color:white;
+
+}
+
+.logo-wrap img{
+
+  width:50px;
+
+}
+
+.reward-box{
+
+  background:white;
+
+  padding:10px 20px;
+
+  border-radius:20px;
+
+  font-weight:bold;
+
+  color:green;
+
+}
+
+.saldo-card{
+
+  width:90%;
+
+  background:white;
+
+  margin:-20px auto 20px;
+
+  border-radius:20px;
+
+  padding:20px;
+
+}
+
+.menu-wrap{
+
+  display:flex;
+
+  justify-content:space-around;
+
+  margin-top:20px;
+
+}
+
+.menu-item{
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+
+  gap:5px;
+
+  cursor:pointer;
+
+}
+
+.mission-wrap{
+
+  background:white;
+
+  min-height:100vh;
+
+  padding:20px;
+
+}
+
+.mission-line{
+
+  width:120px;
+
+  height:6px;
+
+  background:#3ad7e0;
+
+  border-radius:10px;
+
+  margin:20px 0;
+
+}
+
+.mission-tabs{
+
+  display:flex;
+
+  gap:10px;
+
+  overflow:auto;
+
+}
+
+.mission-tabs button{
+
+  border:none;
+
+  padding:12px 20px;
+
+  border-radius:20px;
+
+}
+
+.mission-tabs .active{
+
+  border:2px solid #7378ff;
+
+  background:white;
+
+  color:#7378ff;
+
+}
+
+.empty-mission{
+
+  margin-top:250px;
+
+  text-align:center;
+
+  font-size:32px;
+
+  font-weight:bold;
+
+}
+
+.bottom-nav{
+
+  position:fixed;
+
+  bottom:0;
+
+  width:100%;
+
+  background:#6699cc;
+
+  display:flex;
+
+  justify-content:space-around;
+
+  padding:15px 0;
+
+}
+
+.bottom-nav a{
+
+  color:white;
+
+  text-decoration:none;
+
+}
+
+.bottom-nav .active{
+
+  color:red;
+
+}
+
+.page-header{
+
+  background:#e7f0ff;
+
+  padding:20px;
+
+  display:flex;
+
+  align-items:center;
+
+  gap:15px;
+
+}
+
+.back-btn{
+
+  border:none;
+
+  background:none;
+
+  font-size:28px;
+
+  cursor:pointer;
+
+}
+
+.withdraw-card{
+
+  background:white;
+
+  width:90%;
+
+  margin:20px auto;
+
+  padding:20px;
+
+  border-radius:20px;
+
+}
+
+.saldo-grid{
+
+  display:grid;
+
+  grid-template-columns:1fr 1fr;
+
+  gap:10px;
+
+}
+
+.saldo-box{
+
+  border:2px solid;
+
+  border-radius:15px;
+
+  padding:15px;
+
+}
+
+.green{
+
+  border-color:#00cc66;
+
+}
+
+.orange{
+
+  border-color:orange;
+
+}
+
+.withdraw-btn{
+
+  width:90%;
+
+  margin:auto;
+
+  display:block;
+
+  background:#3388ff;
+
+  color:white;
+
+  border:none;
+
+  padding:15px;
+
+  border-radius:12px;
+
+  font-size:18px;
+
+}
+
+.min-text{
+
+  text-align:center;
+
+}
+
+.check-mission{
+
+  width:90%;
+
+  background:white;
+
+  margin:20px auto;
+
+  padding:20px;
+
+  border-radius:20px;
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  cursor:pointer;
+
+}
+
+.history-tabs{
+
+  display:flex;
+
+  gap:10px;
+
+  padding:20px;
+
+}
+
+.history-tabs button{
+
+  border:none;
+
+  padding:12px 20px;
+
+  border-radius:20px;
+
+}
+
+.history-tabs .active{
+
+  background:#3388ff;
+
+  color:white;
+
+}
+
+.history-item{
+
+  background:white;
+
+  margin:10px;
+
+  border-radius:15px;
+
+  padding:20px;
+
+  display:flex;
+
+  justify-content:space-between;
+
+}
+
+.empty-history{
+
+  text-align:center;
+
+  margin-top:300px;
+
+  font-size:24px;
+
+  font-weight:bold;
+
+}
+
+.bonus-banner{
+
+  height:300px;
+
+  background:#b86ca3;
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+  font-size:60px;
+
+  font-weight:bold;
+
+}
+
+.bonus-card{
+
+  background:white;
+
+  margin:20px;
+
+  padding:20px;
+
+  border-radius:20px;
+
+}
+
+.referral-box{
+
+  display:flex;
+
+  gap:10px;
+
+  background:white;
+
+  margin:20px;
+
+  padding:15px;
+
+  border-radius:15px;
+
+}
+
+.referral-box input{
+
+  flex:1;
+
+  border:none;
+
+  outline:none;
+
+}
+
+.referral-box button{
+
+  border:none;
+
+  background:#3388ff;
+
+  color:white;
+
+  padding:10px 20px;
+
+  border-radius:10px;
+
+}
+
+.bonus-history{
+
+  background:white;
+
+  margin:20px;
+
+  padding:20px;
+
+  border-radius:20px;
+
+}
+
+.bonus-item{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+}

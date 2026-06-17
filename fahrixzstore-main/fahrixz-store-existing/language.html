@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pilih Bahasa - FahriXZ Store</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/logo.svg">
+  <style>
+    .lang-container { padding: 20px; max-width: 500px; margin: 0 auto; }
+    .lang-option-row { display: flex; align-items: center; gap: 15px; padding: 16px 20px; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); margin-bottom: 10px; cursor: pointer; transition: var(--transition-base); }
+    .lang-option-row:hover { border-color: var(--border-accent); }
+    .lang-option-row.active { border-color: var(--primary); background: rgba(0,217,255,0.05); }
+    .lang-flag { font-size: 24px; }
+    .lang-name { flex: 1; font-size: 14px; font-weight: 500; }
+    .lang-check { color: var(--primary); font-size: 18px; }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar glass-nav">
+    <div class="navbar-brand">
+      <button onclick="history.back()" style="background:none;border:none;color:var(--text-primary);margin-right:10px;cursor:pointer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </button>
+      <h1>Pilih Bahasa</h1>
+    </div>
+  </nav>
+
+  <div class="lang-container">
+    <div class="lang-option-row" data-lang="id" onclick="selectLang('id')">
+      <span class="lang-flag">🇮🇩</span>
+      <span class="lang-name">Indonesia</span>
+      <span class="lang-check" id="check-id">✓</span>
+    </div>
+    <div class="lang-option-row" data-lang="en" onclick="selectLang('en')">
+      <span class="lang-flag">🇬🇧</span>
+      <span class="lang-name">English</span>
+      <span class="lang-check" id="check-en" style="display:none">✓</span>
+    </div>
+    <div class="lang-option-row" data-lang="ms" onclick="selectLang('ms')">
+      <span class="lang-flag">🇲🇾</span>
+      <span class="lang-name">Melayu</span>
+      <span class="lang-check" id="check-ms" style="display:none">✓</span>
+    </div>
+    <div class="lang-option-row" data-lang="ar" onclick="selectLang('ar')">
+      <span class="lang-flag">🇸🇦</span>
+      <span class="lang-name">العربية</span>
+      <span class="lang-check" id="check-ar" style="display:none">✓</span>
+    </div>
+    <div class="lang-option-row" data-lang="ja" onclick="selectLang('ja')">
+      <span class="lang-flag">🇯🇵</span>
+      <span class="lang-name">日本語</span>
+      <span class="lang-check" id="check-ja" style="display:none">✓</span>
+    </div>
+    <div class="lang-option-row" data-lang="ko" onclick="selectLang('ko')">
+      <span class="lang-flag">🇰🇷</span>
+      <span class="lang-name">한국어</span>
+      <span class="lang-check" id="check-ko" style="display:none">✓</span>
+    </div>
+    <div class="lang-option-row" data-lang="zh" onclick="selectLang('zh')">
+      <span class="lang-flag">🇨🇳</span>
+      <span class="lang-name">中文</span>
+      <span class="lang-check" id="check-zh" style="display:none">✓</span>
+    </div>
+    <div class="lang-option-row" data-lang="th" onclick="selectLang('th')">
+      <span class="lang-flag">🇹🇭</span>
+      <span class="lang-name">ไทย</span>
+      <span class="lang-check" id="check-th" style="display:none">✓</span>
+    </div>
+    <div class="lang-option-row" data-lang="vi" onclick="selectLang('vi')">
+      <span class="lang-flag">🇻🇳</span>
+      <span class="lang-name">Tiếng Việt</span>
+      <span class="lang-check" id="check-vi" style="display:none">✓</span>
+    </div>
+    <div class="lang-option-row" data-lang="tl" onclick="selectLang('tl')">
+      <span class="lang-flag">🇵🇭</span>
+      <span class="lang-name">Filipino</span>
+      <span class="lang-check" id="check-tl" style="display:none">✓</span>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    const savedLang = localStorage.getItem('language') || 'id';
+    updateUI(savedLang);
+
+    function selectLang(lang) {
+      localStorage.setItem('language', lang);
+      updateUI(lang);
+      showToast('Bahasa diubah ke ' + lang.toUpperCase(), 'success');
+      setTimeout(() => history.back(), 800);
+    }
+
+    function updateUI(lang) {
+      document.querySelectorAll('.lang-option-row').forEach(row => {
+        row.classList.toggle('active', row.dataset.lang === lang);
+      });
+      document.querySelectorAll('.lang-check').forEach(check => check.style.display = 'none');
+      const activeCheck = document.getElementById('check-' + lang);
+      if (activeCheck) activeCheck.style.display = 'inline';
+    }
+  </script>
+</body>
+</html>

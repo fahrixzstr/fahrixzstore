@@ -1,0 +1,171 @@
+/* =========================
+RESPONSIVE - FAHRIXZ STORE
+============================ */
+
+/* Tablet */
+@media (max-width: 992px) {
+  .hero {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 40px 5%;
+  }
+  
+  .hero-image {
+    max-width: 500px;
+    margin: auto;
+  }
+  
+  .navbar {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .stats {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .dashboard,
+  .admin-dashboard {
+    flex-direction: column;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+  
+  .hero {
+    padding: 30px 5%;
+  }
+  
+  .hero h1 {
+    font-size: 2rem;
+  }
+  
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .stats {
+    grid-template-columns: 1fr;
+  }
+  
+  .stats-card h1,
+  .stats-card h2 {
+    font-size: 1.8rem;
+  }
+  
+  .track-form {
+    flex-direction: column;
+  }
+  
+  .order-container {
+    padding: 20px;
+  }
+  
+  .invoice-box {
+    padding: 20px;
+  }
+  
+  .sidebar,
+  .admin-sidebar {
+    width: 100%;
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 10px;
+  }
+  
+  .sidebar a,
+  .admin-sidebar a {
+    white-space: nowrap;
+    padding: 10px 15px;
+  }
+  
+  .content,
+  .admin-content {
+    padding: 20px;
+  }
+  
+  .category-filter {
+    overflow-x: auto;
+    flex-wrap;
+    justify-content: flex-start;
+  }
+  
+  .filter-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+  
+  .auth-container {
+    padding: 20px;
+  }
+  
+  .auth-card {
+    padding: 30px 20px;
+  }
+  
+  .chat-box {
+    height: 500px;
+  }
+  
+  .ai-assistant {
+    width: 90%;
+    right: 5%;
+  }
+  
+  .floating-wa {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+  
+  .hero p {
+    font-size: 1rem;
+  }
+  
+  .btn-primary {
+    padding: 12px 25px;
+    font-size: 14px;
+  }
+  
+  .stats-card {
+    padding: 20px;
+  }
+  
+  .stats-card h1,
+  .stats-card h2 {
+    font-size: 1.5rem;
+  }
+  
+  .testi-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .faq-question {
+    padding: 15px;
+    font-size: 14px;
+  }
+  
+  .promo-bar {
+    font-size: 12px;
+    padding: 10px;
+  }
+  
+  footer {
+    padding: 30px 5%;
+  }
+}

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Misi - FahriXZ Store</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/logo.svg">
+  <style>
+    .mission-container { padding: 20px; max-width: 600px; margin: 0 auto; }
+    .mission-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-xl); padding: 20px; margin-bottom: 12px; transition: var(--transition-base); }
+    .mission-card:hover { border-color: var(--border-accent); }
+    .mission-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .mission-title { font-size: 15px; font-weight: 600; }
+    .mission-reward { padding: 4px 12px; background: rgba(0,217,255,0.1); color: var(--primary); border-radius: var(--radius-full); font-size: 12px; font-weight: 700; }
+    .mission-desc { font-size: 13px; color: var(--text-secondary); margin-bottom: 12px; }
+    .mission-progress { height: 6px; background: var(--bg-glass); border-radius: var(--radius-full); overflow: hidden; margin-bottom: 8px; }
+    .mission-progress-bar { height: 100%; background: var(--gradient-primary); border-radius: var(--radius-full); transition: width 0.5s ease; }
+    .mission-footer { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--text-muted); }
+    .mission-btn { padding: 8px 16px; background: var(--gradient-primary); border: none; border-radius: var(--radius-md); color: var(--text-inverse); font-weight: 600; font-size: 12px; cursor: pointer; transition: var(--transition-base); }
+    .mission-btn:hover { transform: scale(1.02); box-shadow: var(--shadow-glow); }
+    .mission-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar glass-nav">
+    <div class="navbar-brand">
+      <button onclick="history.back()" style="background:none;border:none;color:var(--text-primary);margin-right:10px;cursor:pointer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </button>
+      <h1>Misi Harian</h1>
+    </div>
+  </nav>
+
+  <div style="padding:15px 20px">
+    <p style="font-size:13px;color:var(--text-secondary)">Selesaikan misi untuk mendapatkan reward!</p>
+  </div>
+
+  <div class="mission-container">
+    <div class="mission-card">
+      <div class="mission-header">
+        <span class="mission-title">🔑 Login Harian</span>
+        <span class="mission-reward">+100 Poin</span>
+      </div>
+      <p class="mission-desc">Login ke akun Anda hari ini</p>
+      <div class="mission-progress"><div class="mission-progress-bar" style="width:0%"></div></div>
+      <div class="mission-footer">
+        <span>0/1</span>
+        <button class="mission-btn" onclick="showToast('Silakan login terlebih dahulu', 'info')">Klaim</button>
+      </div>
+    </div>
+
+    <div class="mission-card">
+      <div class="mission-header">
+        <span class="mission-title">🛒 Buat Pesanan</span>
+        <span class="mission-reward">+500 Poin</span>
+      </div>
+      <p class="mission-desc">Lakukan pembelian produk apa saja</p>
+      <div class="mission-progress"><div class="mission-progress-bar" style="width:0%"></div></div>
+      <div class="mission-footer">
+        <span>0/1</span>
+        <button class="mission-btn" onclick="location.href='product.html'">Pesan</button>
+      </div>
+    </div>
+
+    <div class="mission-card">
+      <div class="mission-header">
+        <span class="mission-title">👥 Ajak Teman</span>
+        <span class="mission-reward">+1000 Poin</span>
+      </div>
+      <p class="mission-desc">Bagikan referral ke 1 teman</p>
+      <div class="mission-progress"><div class="mission-progress-bar" style="width:0%"></div></div>
+      <div class="mission-footer">
+        <span>0/1</span>
+        <button class="mission-btn" onclick="location.href='referral.html'">Undang</button>
+      </div>
+    </div>
+
+    <div class="mission-card">
+      <div class="mission-header">
+        <span class="mission-title">💰 Top Up Saldo</span>
+        <span class="mission-reward">+2000 Poin</span>
+      </div>
+      <p class="mission-desc">Isi saldo minimal Rp50.000</p>
+      <div class="mission-progress"><div class="mission-progress-bar" style="width:0%"></div></div>
+      <div class="mission-footer">
+        <span>0/50000</span>
+        <button class="mission-btn" onclick="showToast('Coming soon!', 'info')">Top Up</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Bottom Nav -->
+  <nav class="bottom-nav">
+    <a href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Home</span></a>
+    <a href="missions.html" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>Misi</span></a>
+    <a href="profil.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Profil</span></a>
+  </nav>
+
+  <script src="js/app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('pwa/sw.js').then(r => console.log('SW registered')).catch(e => console.log('SW failed'));
+    }
+  </script>
+</body>
+</html>

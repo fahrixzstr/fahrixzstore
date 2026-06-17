@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Riwayat - FahriXZ Store</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/logo.svg">
+  <style>
+    .history-container { padding: 20px; max-width: 700px; margin: 0 auto; }
+    .history-item { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 16px 20px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; transition: var(--transition-base); }
+    .history-item:hover { border-color: var(--border-accent); }
+    .history-info h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .history-info p { font-size: 12px; color: var(--text-secondary); }
+    .history-status { padding: 4px 12px; border-radius: var(--radius-full); font-size: 11px; font-weight: 600; }
+    .status-pending { background: rgba(245,158,11,0.2); color: #f59e0b; }
+    .status-success { background: rgba(34,197,94,0.2); color: #22c55e; }
+    .status-failed { background: rgba(239,68,68,0.2); color: #ef4444; }
+    .tabs { display: flex; gap: 5px; padding: 15px 20px; border-bottom: 1px solid var(--border-subtle); overflow-x: auto; }
+    .tab { padding: 8px 16px; background: var(--bg-glass); border: 1px solid var(--border-subtle); border-radius: var(--radius-full); color: var(--text-secondary); font-size: 12px; cursor: pointer; white-space: nowrap; transition: var(--transition-base); }
+    .tab.active { background: var(--primary); color: var(--text-inverse); border-color: var(--primary); }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar glass-nav">
+    <div class="navbar-brand">
+      <button onclick="history.back()" style="background:none;border:none;color:var(--text-primary);margin-right:10px;cursor:pointer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </button>
+      <h1>Riwayat Pesanan</h1>
+    </div>
+  </nav>
+
+  <div class="tabs">
+    <button class="tab active" onclick="filterHistory('all')">Semua</button>
+    <button class="tab" onclick="filterHistory('pending')">Pending</button>
+    <button class="tab" onclick="filterHistory('success')">Sukses</button>
+  </div>
+
+  <div class="history-container">
+    <div id="historyList">
+      <!-- Will be populated -->
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Bottom Nav -->
+  <nav class="bottom-nav">
+    <a href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Home</span></a>
+    <a href="profil.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Profil</span></a>
+  </nav>
+
+  <script src="js/app.js"></script>
+  <script>
+    let orderHistory = JSON.parse(localStorage.getItem('orders') || '[]');
+
+    function renderHistory(filter = 'all') {
+      const list = document.getElementById('historyList');
+      let filtered = orderHistory;
+      if (filter !== 'all') filtered = orderHistory.filter(o => o.status === filter);
+
+      if (filtered.length === 0) {
+        list.innerHTML = `
+          <div class="empty-state" style="padding:60px 20px;text-align:center">
+            <div style="font-size:48px;margin-bottom:16px;opacity:0.5">📭</div>
+            <h3 style="font-size:16px;color:var(--text-secondary)">Belum ada riwayat</h3>
+            <p style="font-size:13px;color:var(--text-muted);margin-top:8px">Pesanan Anda akan muncul di sini</p>
+          </div>`;
+        return;
+      }
+
+      list.innerHTML = filtered.map(order => `
+        <div class="history-item">
+          <div class="history-info">
+            <h4>${order.produk || order.product || 'Pesanan'}</h4>
+            <p>${order.id} | ${order.date || '-'}</p>
+          </div>
+          <span class="history-status status-${order.status || 'pending'}">${order.status || 'Pending'}</span>
+        </div>
+      `).join('');
+    }
+
+    function filterHistory(status) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      event.target.classList.add('active');
+      renderHistory(status);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => renderHistory());
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('pwa/sw.js').then(r => console.log('SW registered')).catch(e => console.log('SW failed'));
+    }
+  </script>
+</body>
+</html>

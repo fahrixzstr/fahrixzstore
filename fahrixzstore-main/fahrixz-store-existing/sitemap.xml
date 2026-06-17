@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- MAIN PAGE -->
+  <url>
+    <loc>https://fahrixzstore.vercel.app/</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- CORE PAGES -->
+  <url><loc>https://fahrixzstore.vercel.app/index.html</loc></url>
+  <url><loc>https://fahrixzstore.vercel.app/login.html</loc></url>
+  <url><loc>https://fahrixzstore.vercel.app/register.html</loc></url>
+  <url><loc>https://fahrixzstore.vercel.app/product.html</loc></url>
+  <url><loc>https://fahrixzstore.vercel.app/order.html</loc></url>
+  <url><loc>https://fahrixzstore.vercel.app/history.html</loc></url>
+  <url><loc>https://fahrixzstore.vercel.app/profile.html</loc></url>
+  <url><loc>https://fahrixzstore.vercel.app/profil.html</loc></url>
+
+  <!-- SUPPORT PAGES -->
+  <url><loc>https://fahrixzstore.vercel.app/settings.html</loc></url>
+  <url><loc>https://fahrixzstore.vercel.app/privacy.html</loc></url>
+  <url><loc>https://fahrixzstore.vercel.app/referral.html</loc></url>
+  <url><loc>https://fahrixzstore.vercel.app/report.html</loc></url>
+  <url><loc>https://fahrixzstore.vercel.app/tracking.html</loc></url>
+  <url><loc>https://fahrixzstore.vercel.app/notification.html</loc></url>
+  <url><loc>https://fahrixzstore.vercel.app/language.html</loc></url>
+  <url><loc>https://fahrixzstore.vercel.app/offline.html</loc></url>
+  <url><loc>https://fahrixzstore.vercel.app/forgot-password.html</loc></url>
+
+  <!-- BONUS / EXTRA -->
+  <url><loc>https://fahrixzstore.vercel.app/bonus.html</loc></url>
+  <url><loc>https://fahrixzstore.vercel.app/missions.html</loc></url>
+  <url><loc>https://fahrixzstore.vercel.app/broadcast.html</loc></url>
+  <url><loc>https://fahrixzstore.vercel.app/transaction-activity.html</loc></url>
+
+</urlset>

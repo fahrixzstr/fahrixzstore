@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pengaturan - FahriXZ Store</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/logo.svg">
+  <style>
+    .settings-container { padding: 20px; max-width: 600px; margin: 0 auto; }
+    .settings-group { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-xl); overflow: hidden; margin-bottom: 16px; }
+    .settings-item { display: flex; align-items: center; padding: 16px 20px; gap: 14px; cursor: pointer; transition: var(--transition-fast); border-bottom: 1px solid var(--border-subtle); }
+    .settings-item:last-child { border-bottom: none; }
+    .settings-item:hover { background: var(--bg-glass); }
+    .settings-item .icon { width: 36px; height: 36px; border-radius: var(--radius-md); background: var(--bg-glass); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+    .settings-item .content { flex: 1; }
+    .settings-item .title { font-size: 14px; font-weight: 500; }
+    .settings-item .desc { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+    .settings-item .arrow { color: var(--text-muted); font-size: 14px; }
+    .toggle { width: 44px; height: 26px; background: var(--border-subtle); border-radius: var(--radius-full); position: relative; cursor: pointer; transition: var(--transition-base); flex-shrink: 0; }
+    .toggle.active { background: var(--primary); }
+    .toggle::after { content: ''; position: absolute; width: 20px; height: 20px; background: white; border-radius: 50%; top: 3px; left: 3px; transition: var(--transition-base); }
+    .toggle.active::after { left: 21px; }
+    .version { text-align: center; padding: 30px 20px; font-size: 12px; color: var(--text-muted); }
+    .about-content { padding: 20px; font-size: 13px; color: var(--text-secondary); line-height: 1.8; }
+    .about-content h4 { color: var(--text-primary); margin: 16px 0 8px; font-size: 14px; }
+    .about-content p { margin-bottom: 8px; }
+    .about-content ul { margin-left: 20px; }
+    .about-content li { margin-bottom: 4px; }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar glass-nav">
+    <div class="navbar-brand">
+      <button onclick="history.back()" style="background:none;border:none;color:var(--text-primary);margin-right:10px;cursor:pointer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </button>
+      <h1>Pengaturan</h1>
+    </div>
+  </nav>
+
+  <div class="settings-container">
+    <!-- Account -->
+    <div class="settings-group">
+      <div class="settings-item" onclick="location.href='login.html'">
+        <div class="icon">👤</div>
+        <div class="content">
+          <div class="title">Akun</div>
+          <div class="desc">Login atau daftar akun</div>
+        </div>
+        <span class="arrow">›</span>
+      </div>
+      <div class="settings-item" onclick="location.href='profil.html'">
+        <div class="icon">📝</div>
+        <div class="content">
+          <div class="title">Edit Profil</div>
+          <div class="desc">Ubah informasi profil</div>
+        </div>
+        <span class="arrow">›</span>
+      </div>
+    </div>
+
+    <!-- Preferences -->
+    <div class="settings-group">
+      <div class="settings-item" onclick="toggleDarkMode()">
+        <div class="icon">🌙</div>
+        <div class="content">
+          <div class="title">Dark Mode</div>
+          <div class="desc">Aktifkan tema gelap</div>
+        </div>
+        <div class="toggle" id="darkModeToggle"></div>
+      </div>
+      <div class="settings-item" onclick="toggleNotif()">
+        <div class="icon">🔔</div>
+        <div class="content">
+          <div class="title">Notifikasi</div>
+          <div class="desc">Aktifkan notifikasi push</div>
+        </div>
+        <div class="toggle active" id="notifToggle"></div>
+      </div>
+      <div class="settings-item" onclick="location.href='language.html'">
+        <div class="icon">🌐</div>
+        <div class="content">
+          <div class="title">Bahasa</div>
+          <div class="desc" id="currentLang">Indonesia</div>
+        </div>
+        <span class="arrow">›</span>
+      </div>
+    </div>
+
+    <!-- Info -->
+    <div class="settings-group">
+      <div class="settings-item" onclick="location.href='privacy.html'">
+        <div class="icon">🔒</div>
+        <div class="content">
+          <div class="title">Privasi</div>
+          <div class="desc">Kebijakan privasi</div>
+        </div>
+        <span class="arrow">›</span>
+      </div>
+      <div class="settings-item" onclick="location.href='s&k.html'">
+        <div class="icon">📜</div>
+        <div class="content">
+          <div class="title">Syarat & Ketentuan</div>
+          <div class="desc">Ketentuan layanan</div>
+        </div>
+        <span class="arrow">›</span>
+      </div>
+      <div class="settings-item" onclick="toggleAbout()">
+        <div class="icon">ℹ️</div>
+        <div class="content">
+          <div class="title">Tentang Web</div>
+          <div class="desc">Informasi tentang website</div>
+        </div>
+        <span class="arrow" id="aboutArrow">›</span>
+      </div>
+    </div>
+
+    <!-- About Web Section (Expandable) -->
+    <div class="settings-group" id="aboutSection" style="display:none">
+      <div class="about-content">
+        <h4>🌐 FahriXZ Store</h4>
+        <p>FahriXZ Store adalah platform digital terpercaya yang menyediakan berbagai layanan dan produk digital untuk kebutuhan harian Anda.</p>
+        
+        <h4>📱 Layanan Kami</h4>
+        <ul>
+          <li>Upgrade E-Wallet Premium (Dana, GoPay, OVO)</li>
+          <li>Langganan Streaming (Netflix, Spotify)</li>
+          <li>Tools AI (ChatGPT Plus)</li>
+          <li>Jasa Edit Foto & Video Profesional</li>
+          <li>Top-up Game & Voucher</li>
+          <li>QRIS Merchant</li>
+        </ul>
+
+        <h4>🛡️ Keamanan</h4>
+        <p>Kami menggunakan sistem keamanan berlapis dengan enkripsi SSL untuk melindungi data dan transaksi Anda.</p>
+
+        <h4>⚡ Keunggulan</h4>
+        <ul>
+          <li>Proses cepat (5-15 menit)</li>
+          <li>Harga kompetitif</li>
+          <li>Support 24/7</li>
+          <li>Garansi uang kembali</li>
+          <li>Transaksi aman</li>
+        </ul>
+
+        <h4>📞 Kontak</h4>
+        <p>WhatsApp: 085609949819<br>
+        Email: fahrixz67@gmail.com </p>
+
+        <h4>📍 Alamat</h4>
+        <p>Indonesia</p>
+
+        <p style="margin-top:16px;font-size:12px;color:var(--text-muted)">Versi 2.0.0 - &copy; 2025 FahriXZ Store</p>
+      </div>
+    </div>
+
+    <!-- Support -->
+    <div class="settings-group">
+      <div class="settings-item" onclick="location.href='https://wa.me/6285609949819'">
+        <div class="icon">💬</div>
+        <div class="content">
+          <div class="title">Hubungi Kami</div>
+          <div class="desc">Bantuan dan dukungan</div>
+        </div>
+        <span class="arrow">›</span>
+      </div>
+    </div>
+
+    <!-- Logout -->
+    <div style="padding:0 0 20px">
+      <button onclick="logout()" style="width:100%;padding:14px;background:linear-gradient(135deg,#ef4444,#dc2626);color:white;border:none;border-radius:var(--radius-lg);font-weight:600;font-size:14px;cursor:pointer;transition:all 0.3s">
+        🚪 Keluar
+      </button>
+    </div>
+  </div>
+
+  <div class="version">FahriXZ Store v2.0.0</div>
+
+  <!-- Toast -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script>
+    // Dark mode toggle
+    function toggleDarkMode() {
+      const toggle = document.getElementById('darkModeToggle');
+      toggle.classList.toggle('active');
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', toggle.classList.contains('active'));
+    }
+
+    // Notification toggle
+    function toggleNotif() {
+      const toggle = document.getElementById('notifToggle');
+      toggle.classList.toggle('active');
+      localStorage.setItem('notifications', toggle.classList.contains('active'));
+    }
+
+    // About section toggle
+    function toggleAbout() {
+      const section = document.getElementById('aboutSection');
+      const arrow = document.getElementById('aboutArrow');
+      if (section.style.display === 'none') {
+        section.style.display = 'block';
+        arrow.textContent = '⌄';
+      } else {
+        section.style.display = 'none';
+        arrow.textContent = '›';
+      }
+    }
+
+    // Logout
+    function logout() {
+      if (confirm('Yakin ingin keluar?')) {
+        localStorage.removeItem('user');
+        showToast('Berhasil keluar', 'success');
+        setTimeout(() => location.href = 'index.html', 800);
+      }
+    }
+
+    // Load saved preferences
+    document.addEventListener('DOMContentLoaded', () => {
+      if (localStorage.getItem('darkMode') === 'true') {
+        document.getElementById('darkModeToggle').classList.add('active');
+        document.body.classList.add('dark-mode');
+      }
+      if (localStorage.getItem('notifications') === 'false') {
+        document.getElementById('notifToggle').classList.remove('active');
+      }
+
+      // Set language display
+      const lang = localStorage.getItem('language') || 'id';
+      const langNames = { id: 'Indonesia', en: 'English', ms: 'Melayu', ar: 'العربية', ja: '日本語', ko: '한국어', zh: '中文', th: 'ไทย', vi: 'Tiếng Việt', tl: 'Filipino' };
+      document.getElementById('currentLang').textContent = langNames[lang] || 'Indonesia';
+    });
+  </script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('pwa/sw.js').then(r => console.log('SW registered')).catch(e => console.log('SW failed'));
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+/* =========================
+MOBILE SPECIFIC
+============================ */
+
+@media (max-width: 768px) {
+  .sidebar,
+  .admin-sidebar {
+    display: none;
+  }
+  
+  .dashboard,
+  .admin-dashboard {
+    flex-direction: column;
+  }
+  
+  .content,
+  .admin-content {
+    padding: 20px;
+  }
+  
+  .stats-grid,
+  .admin-stats {
+    grid-template-columns: 1fr;
+  }
+  
+  .track-form {
+    flex-direction: column;
+  }
+  
+  .order-container {
+    padding: 20px;
+  }
+  
+  .chat-box {
+    height: 500px;
+  }
+}

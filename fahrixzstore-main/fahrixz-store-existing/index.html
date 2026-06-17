@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FahriXZ Store - Toko Digital Premium Indonesia">
+  <meta name="author" content="FahriXZ Store">
+  <meta name="theme-color" content="#00d9ff">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <title>FahriXZ Store - Digital Premium</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animation.css">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/logo.svg">
+  <link rel="apple-touch-icon" href="assets/logo.svg">
+  <link rel="manifest" href="pwa/manifest.json">
+</head>
+
+<body>
+
+  <!-- PRELOADER -->
+  <div class="preloader" id="preloader">
+    <div class="preloader-logo">FXZ</div>
+  </div>
+
+  <!-- PROMO BAR -->
+  <div class="promo-bar" id="promoBar">
+    <span data-i18n="promoText">Flash Sale! Diskon up to 50%</span>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar glass-nav">
+    <a href="index.html" class="navbar-brand">
+      <img src="assets/logo.svg" alt="FahriXZ Logo" onerror="this.style.display='none'">
+      <h1>FahriXZ</h1>
+    </a>
+
+    <div class="nav-search">
+      <input type="search" placeholder="Cari produk... (Ctrl+K)" id="searchInput" onkeyup="searchProducts()">
+      <button class="search-btn" onclick="searchProducts()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      </button>
+    </div>
+
+    <div class="nav-icons">
+      <!-- Language -->
+      <button class="nav-icon-btn" onclick="toggleLang()" title="Bahasa">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      </button>
+      <!-- Language Dropdown -->
+      <div class="lang-dropdown" id="langDropdown" style="position:absolute;top:50px;right:10px;">
+        <div class="lang-option active" onclick="setLang('id')" data-lang="id">🇮🇩 Indonesia</div>
+        <div class="lang-option" onclick="setLang('en')" data-lang="en">🇬🇧 English</div>
+        <div class="lang-option" onclick="setLang('ms')" data-lang="ms">🇲🇾 Melayu</div>
+        <div class="lang-option" onclick="setLang('ar')" data-lang="ar">🇸🇦 العربية</div>
+        <div class="lang-option" onclick="setLang('ja')" data-lang="ja">🇯🇵 日本語</div>
+        <div class="lang-option" onclick="setLang('ko')" data-lang="ko">🇰🇷 한국어</div>
+        <div class="lang-option" onclick="setLang('zh')" data-lang="zh">🇨🇳 中文</div>
+        <div class="lang-option" onclick="setLang('th')" data-lang="th">🇹🇭 ไทย</div>
+        <div class="lang-option" onclick="setLang('vi')" data-lang="vi">🇻🇳 Tiếng Việt</div>
+        <div class="lang-option" onclick="setLang('tl')" data-lang="tl">🇵🇭 Filipino</div>
+      </div>
+
+      <button class="nav-icon-btn" onclick="toggleWishlist()" title="Wishlist">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <span class="nav-badge hidden" id="wishlistCount">0</span>
+      </button>
+
+      <button class="nav-icon-btn" onclick="location.href='notification.html'" title="Notifikasi">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span class="nav-badge hidden" id="notifCount">0</span>
+      </button>
+
+      <button class="nav-icon-btn" onclick="toggleMenu()" title="Menu">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MENU DROPDOWN -->
+  <div class="menu-dropdown" id="menuDropdown">
+    <div class="menu-dropdown-content">
+      <div class="menu-section">
+        <div class="menu-title">Menu</div>
+        <a class="menu-item" href="index.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span data-i18n="menuHome">Beranda</span>
+        </a>
+        <a class="menu-item" href="product.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span data-i18n="menuProducts">Produk</span>
+        </a>
+        <a class="menu-item" href="profil.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span data-i18n="menuProfile">Profil</span>
+        </a>
+      </div>
+      <div class="menu-section">
+        <div class="menu-title">Akun</div>
+        <a class="menu-item" href="history.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span data-i18n="menuHistory">Riwayat</span>
+        </a>
+        <a class="menu-item" href="referral.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span data-i18n="menuReferral">Referral</span>
+        </a>
+        <a class="menu-item" href="login.html" id="menuLogin">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+          <span data-i18n="menuLogin">Login</span>
+        </a>
+        <a class="menu-item" href="settings.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span data-i18n="menuSettings">Pengaturan</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO SECTION -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="pulse-dot"></span>
+        <span data-i18n="heroBadge">Official Store</span>
+      </div>
+      <h1 data-i18n="heroTitle">FahriXZ Store</h1>
+      <p data-i18n="heroSubtitle">Toko Digital Premium - Layanan & Produk Digital Terlengkap</p>
+      <a href="#products" class="hero-cta">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        <span data-i18n="heroCta">Lihat Produk</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- TRUST BADGES -->
+  <section class="trust-section">
+    <div class="trust-badge">
+      <span class="icon">🔒</span>
+      <span data-i18n="trustSecure">Secure Payment</span>
+    </div>
+    <div class="trust-badge">
+      <span class="icon">⚡</span>
+      <span data-i18n="trustFast">Fast Process</span>
+    </div>
+    <div class="trust-badge">
+      <span class="icon">✓</span>
+      <span data-i18n="trustOfficial">Official Store</span>
+    </div>
+    <div class="trust-badge">
+      <span class="icon">🛡️</span>
+      <span data-i18n="trustVerified">Verified Provider</span>
+    </div>
+  </section>
+
+  <!-- FLASH SALE (COMPACT) -->
+  <div class="flash-sale" id="flashSale">
+    <div class="flash-sale-header">
+      <span>⚡</span>
+      <h3 data-i18n="flashSaleTitle">Flash Sale</h3>
+      <span class="flash-sale-badge">-50%</span>
+    </div>
+    <div class="countdown-timer">
+      <div class="countdown-item">
+        <div class="number" id="hours">05</div>
+        <div class="label" data-i18n="hours">Jam</div>
+      </div>
+      <div class="countdown-item">
+        <div class="number" id="minutes">30</div>
+        <div class="label" data-i18n="minutes">Menit</div>
+      </div>
+      <div class="countdown-item">
+        <div class="number" id="seconds">00</div>
+        <div class="label" data-i18n="seconds">Detik</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BANNER SLIDER -->
+  <div class="banner-slider" id="bannerSlider">
+    <img src="assets/image/banner/banner1.jpg" alt="Banner 1" class="banner-slide active" onerror="this.style.display='none'">
+    <img src="assets/image/banner/banner2.jpg" alt="Banner 2" class="banner-slide" onerror="this.style.display='none'">
+    <img src="assets/image/banner/banner3.jpg" alt="Banner 3" class="banner-slide" onerror="this.style.display='none'">
+    <img src="assets/image/banner/banner4.jpg" alt="Banner 4" class="banner-slide" onerror="this.style.display='none'">
+    <div class="banner-dots">
+      <span class="banner-dot active" onclick="goToBanner(0)"></span>
+      <span class="banner-dot" onclick="goToBanner(1)"></span>
+      <span class="banner-dot" onclick="goToBanner(2)"></span>
+      <span class="banner-dot" onclick="goToBanner(3)"></span>
+    </div>
+  </div>
+
+  <!-- PRODUCTS SECTION -->
+  <section id="products">
+    <!-- Category Filter -->
+    <div class="category-filter">
+      <button class="filter-btn active" data-category="all" onclick="filterProducts('all')" data-i18n="catAll">Semua</button>
+      <button class="filter-btn" data-category="ewallet" onclick="filterProducts('ewallet')">E-Wallet</button>
+      <button class="filter-btn" data-category="bank" onclick="filterProducts('bank')">Bank Digital</button>
+      <button class="filter-btn" data-category="qris" onclick="filterProducts('qris')">QRIS</button>
+      <button class="filter-btn" data-category="streaming" onclick="filterProducts('streaming')">Streaming</button>
+      <button class="filter-btn" data-category="ai" onclick="filterProducts('ai')">AI Tools</button>
+      <button class="filter-btn" data-category="editing" onclick="filterProducts('editing')">Editing</button>
+      <button class="filter-btn" data-category="service" onclick="filterProducts('service')">Jasa</button>
+    </div>
+
+    <!-- Loading Skeleton -->
+    <div id="skeletonLoader" class="product-grid">
+      <div class="product-card skeleton-card">
+        <div class="skeleton skeleton-image"></div>
+        <div style="padding:16px">
+          <div class="skeleton skeleton-title"></div>
+          <div class="skeleton skeleton-text" style="width:80%"></div>
+          <div class="skeleton skeleton-text" style="width:40%"></div>
+        </div>
+      </div>
+      <div class="product-card skeleton-card">
+        <div class="skeleton skeleton-image"></div>
+        <div style="padding:16px">
+          <div class="skeleton skeleton-title"></div>
+          <div class="skeleton skeleton-text" style="width:80%"></div>
+          <div class="skeleton skeleton-text" style="width:40%"></div>
+        </div>
+      </div>
+      <div class="product-card skeleton-card">
+        <div class="skeleton skeleton-image"></div>
+        <div style="padding:16px">
+          <div class="skeleton skeleton-title"></div>
+          <div class="skeleton skeleton-text" style="width:80%"></div>
+          <div class="skeleton skeleton-text" style="width:40%"></div>
+        </div>
+      </div>
+      <div class="product-card skeleton-card">
+        <div class="skeleton skeleton-image"></div>
+        <div style="padding:16px">
+          <div class="skeleton skeleton-title"></div>
+          <div class="skeleton skeleton-text" style="width:80%"></div>
+          <div class="skeleton skeleton-text" style="width:40%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="product-grid" id="productGrid" style="display:none"></div>
+  </section>
+
+  <!-- WHY CHOOSE US -->
+  <section class="why-section">
+    <h2 data-i18n="whyTitle">Mengapa Memilih Kami?</h2>
+    <p data-i18n="whySubtitle">Keunggulan layanan FahriXZ Store</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="icon">⚡</div>
+        <h3 data-i18n="whyFast">Fast Process</h3>
+        <p data-i18n="whyFastDesc">Pesanan diproses dalam hitungan menit</p>
+      </div>
+      <div class="why-card">
+        <div class="icon">🛡️</div>
+        <h3 data-i18n="whySecure">Secure & Trusted</h3>
+        <p data-i18n="whySecureDesc">Transaksi aman dengan enkripsi</p>
+      </div>
+      <div class="why-card">
+        <div class="icon">🎧</div>
+        <h3 data-i18n="whySupport">24/7 Support</h3>
+        <p data-i18n="whySupportDesc">Tim support siap membantu kapan saja</p>
+      </div>
+      <div class="why-card">
+        <div class="icon">✓</div>
+        <h3 data-i18n="whyOfficial">Official Handling</h3>
+        <p data-i18n="whyOfficialDesc">Semua produk dari sumber resmi</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials-section">
+    <h2 data-i18n="testiTitle">Apa Kata Mereka?</h2>
+    <p data-i18n="testiSubtitle">Testimoni dari pelanggan kami</p>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text" data-i18n="testi1">Pelayanan sangat cepat dan aman. Sudah langganan disini dari tahun lalu, tidak pernah kecewa!</p>
+        <div class="testi-author">
+          <div class="testi-avatar">AR</div>
+          <div>
+            <div class="testi-name">Ahmad R.</div>
+            <div class="testi-role">Pelanggan Setia</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text" data-i18n="testi2">Harga terbaik dan prosesnya super cepat. CS juga ramah dan responsif banget.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">SF</div>
+          <div>
+            <div class="testi-name">Siti F.</div>
+            <div class="testi-role">Content Creator</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text" data-i18n="testi3">Top up e-wallet disini paling murah dan cepat. Recommended banget buat semua orang!</p>
+        <div class="testi-author">
+          <div class="testi-avatar">BD</div>
+          <div>
+            <div class="testi-name">Budi D.</div>
+            <div class="testi-role">Mahasiswa</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <h2 data-i18n="faqTitle">Pertanyaan Umum</h2>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span data-i18n="faq1q">Bagaimana cara memesan?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p data-i18n="faq1a">Pilih produk yang diinginkan, klik tombol Order, lalu ikuti instruksi pembayaran. Pesanan akan diproses otomatis setelah pembayaran dikonfirmasi.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span data-i18n="faq2q">Berapa lama prosesnya?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p data-i18n="faq2a">Sebagian besar pesanan diproses dalam 5-15 menit. Pesanan dengan verifikasi tambahan mungkin membutuhkan waktu hingga 1 jam.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span data-i18n="faq3q">Apakah aman bertransaksi?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p data-i18n="faq3a">Sangat aman. Kami menggunakan enkripsi SSL dan sistem keamanan berlapis untuk melindungi data dan transaksi Anda.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span data-i18n="faq4q">Metode pembayaran apa saja?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p data-i18n="faq4a">Kami menerima transfer bank( SeaBank,HyBank,Bank Jago), e-wallet (Dana, ShopeePay), Dan QRIS, Pembayaran dilakukan melalui Aplikasi WhatsApp.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span data-i18n="faq5q">Bagaimana jika pesanan gagal?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p data-i18n="faq5a">Jika pesanan gagal, uang Anda akan dikembalikan 100% atau bisa dipindahkan ke produk lain. Hubungi CS kami untuk bantuan.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>FahriXZ Store</h3>
+        <p data-i18n="footerDesc">Toko digital premium terpercaya untuk kebutuhan aplikasi, top-up, dan jasa digital Anda.</p>
+      </div>
+      <div class="footer-links">
+        <h4 data-i18n="footerQuick">Quick Links</h4>
+        <a href="index.html" data-i18n="footerHome">Beranda</a>
+        <a href="product.html" data-i18n="footerProducts">Produk</a>
+        <a href="profil.html" data-i18n="footerProfile">Profil</a>
+        <a href="login.html" data-i18n="footerLogin">Login</a>
+      </div>
+      <div class="footer-links">
+        <h4 data-i18n="footerHelp">Bantuan</h4>
+        <a href="privacy.html" data-i18n="footerPrivacy">Kebijakan Privasi</a>
+        <a href="s&k.html" data-i18n="footerTerms">Syarat & Ketentuan</a>
+        <a href="settings.html" data-i18n="footerAbout">Tentang Kami</a>
+      </div>
+      <div class="footer-links">
+        <h4 data-i18n="footerContact">Kontak</h4>
+        <a href="https://wa.me/6285609949819" target="_blank">WhatsApp</a>
+        <a href="https://t.me/FahriXzStore" target="_blank">Telegram</a>
+        <a href="mailto:fahrixz67@gmail.com">Email</a>
+        <a href="#" onclick="showToast('Coming soon!', 'info')">Instagram</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 FahriXZ Store. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- ORDER MODAL -->
+  <div class="order-modal-overlay" id="orderModal">
+    <div class="order-modal">
+      <div class="order-modal-header">
+        <h2 data-i18n="orderTitle">Detail Pesanan</h2>
+        <button class="order-modal-close" onclick="closeOrderModal()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="order-modal-body">
+        <div class="order-detail-row">
+          <span class="label" data-i18n="orderProduct">Produk</span>
+          <span class="value" id="modalProduct">-</span>
+        </div>
+        <div class="order-detail-row">
+          <span class="label" data-i18n="orderPrice">Harga</span>
+          <span class="value" id="modalPrice">-</span>
+        </div>
+        <div class="order-detail-row">
+          <span class="label" data-i18n="orderQty">Quantity</span>
+          <span class="value" id="modalQty">x1</span>
+        </div>
+        <div class="order-detail-row">
+          <span class="label" data-i18n="orderId">ID Pesanan</span>
+          <span class="value id" id="modalOrderId">-</span>
+        </div>
+        <div class="order-detail-row">
+          <span class="label" data-i18n="orderStatus">Status</span>
+          <span class="value" style="color:var(--warning)" id="modalStatus">Pending</span>
+        </div>
+      </div>
+      <div class="order-modal-footer">
+        <button class="btn-whatsapp" onclick="sendOrderToWhatsApp()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.008-.57-.008-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          <span data-i18n="orderViaWA">Pesan via WhatsApp</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CUSTOMER SERVICE WIDGET -->
+  <div class="cs-widget" id="csWidget">
+    <div class="cs-header">
+      <div class="avatar">🎧</div>
+      <div class="info">
+        <h4 data-i18n="csTitle">Customer Service</h4>
+        <p data-i18n="csOnline">Online - Siap membantu</p>
+      </div>
+    </div>
+    <div class="cs-body" id="csBody">
+      <div class="cs-message bot">
+        <p data-i18n="csGreeting">Halo! Ada yang bisa kami bantu? Silakan pilih pertanyaan umum di bawah atau ketik pesan Anda.</p>
+        <div class="cs-quick-replies">
+          <button class="cs-quick-btn" onclick="csQuickReply('price')" data-i18n="csQ1">Cek Harga</button>
+          <button class="cs-quick-btn" onclick="csQuickReply('process')" data-i18n="csQ2">Cara Pesan</button>
+          <button class="cs-quick-btn" onclick="csQuickReply('status')" data-i18n="csQ3">Cek Status</button>
+          <button class="cs-quick-btn" onclick="csQuickReply('payment')" data-i18n="csQ4">Metode Bayar</button>
+        </div>
+      </div>
+    </div>
+    <div class="cs-input">
+      <input type="text" id="csInput" placeholder="Ketik pesan..." onkeypress="if(event.key==='Enter')csSend()">
+      <button onclick="csSend()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- CS Toggle Button -->
+  <button class="cs-toggle" id="csToggle" onclick="toggleCS()">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  </button>
+
+  <!-- FLOATING WHATSAPP -->
+  <a href="https://wa.me/6285609949819" class="floating-wa" target="_blank" title="WhatsApp">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.008-.57-.008-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <!-- TOAST CONTAINER -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+    <a href="index.html" class="active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span data-i18n="navHome">Home</span>
+    </a>
+    <a href="tracking.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M9 12l2 2 4-4"/></svg>
+      <span data-i18n="navTrack">Track</span>
+    </a>
+    <a href="transaction-activity.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      <span data-i18n="navActivity">Aktivitas</span>
+    </a>
+    <a href="missions.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <span data-i18n="navMission">Misi</span>
+    </a>
+    <a href="profil.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span data-i18n="navProfile">Profil</span>
+    </a>
+  </nav>
+
+  <!-- SCRIPTS -->
+  <script src="js/app.js"></script>
+  <script src="js/product.js"></script>
+  <script src="js/search.js"></script>
+  <script>
+    // Preloader
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        var p = document.getElementById('preloader');
+        if (p) p.classList.add('hidden');
+      }, 1200);
+    });
+
+    // Countdown Timer
+    (function() {
+      var hrs = 5, mins = 30, secs = 0;
+      setInterval(function() {
+        secs--;
+        if (secs < 0) { secs = 59; mins--; }
+        if (mins < 0) { mins = 59; hrs--; }
+        if (hrs < 0) { hrs = 23; mins = 59; secs = 59; }
+        var hEl = document.getElementById('hours');
+        var mEl = document.getElementById('minutes');
+        var sEl = document.getElementById('seconds');
+        if (hEl) hEl.textContent = String(hrs).padStart(2, '0');
+        if (mEl) mEl.textContent = String(mins).padStart(2, '0');
+        if (sEl) sEl.textContent = String(secs).padStart(2, '0');
+      }, 1000);
+    })();
+
+    // Banner Slider
+    (function() {
+      var currentBanner = 0;
+      var bannerEls = document.querySelectorAll('.banner-slide');
+      var dotEls = document.querySelectorAll('.banner-dot');
+      window.goToBanner = function(index) {
+        bannerEls.forEach(function(b, i) { b.classList.toggle('active', i === index); });
+        dotEls.forEach(function(d, i) { d.classList.toggle('active', i === index); });
+        currentBanner = index;
+      };
+      setInterval(function() {
+        currentBanner = (currentBanner + 1) % bannerEls.length;
+        window.goToBanner(currentBanner);
+      }, 4000);
+    })();
+
+    // Render Products with skeleton delay
+    setTimeout(function() {
+      var skel = document.getElementById('skeletonLoader');
+      var grid = document.getElementById('productGrid');
+      if (skel) skel.style.display = 'none';
+      if (grid) {
+        grid.style.display = 'grid';
+        if (typeof renderProducts === 'function' && typeof products !== 'undefined') {
+          renderProducts(products);
+        }
+      }
+    }, 1500);
+
+    // Order Modal handlers
+    (function() {
+      var modal = document.getElementById('orderModal');
+      if (modal) {
+        modal.addEventListener('click', function(e) {
+          if (e.target === modal && typeof closeOrderModal === 'function') closeOrderModal();
+        });
+      }
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && typeof closeOrderModal === 'function') closeOrderModal();
+      });
+    })();
+
+    // Keyboard shortcut Ctrl+K for search
+    document.addEventListener('keydown', function(e) {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        var si = document.getElementById('searchInput');
+        if (si) si.focus();
+      }
+    });
+
+    // FAQ Toggle
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+    }
+
+    // Menu Toggle
+    function toggleMenu() {
+      document.getElementById('menuDropdown').classList.toggle('open');
+    }
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.nav-icons') && !e.target.closest('.menu-dropdown')) {
+        document.getElementById('menuDropdown').classList.remove('open');
+      }
+    });
+
+    // Language Toggle
+    function toggleLang() {
+      document.getElementById('langDropdown').classList.toggle('open');
+    }
+    function setLang(lang) {
+      localStorage.setItem('language', lang);
+      document.getElementById('langDropdown').classList.remove('open');
+      document.querySelectorAll('.lang-option').forEach(o => o.classList.toggle('active', o.dataset.lang === lang));
+      applyTranslations(lang);
+      showToast('Bahasa diubah ke ' + lang.toUpperCase(), 'success');
+    }
+
+    const translations = {
+      id: {
+        promoText: 'Flash Sale! Diskon up to 50%',
+        heroBadge: 'Official Store',
+        heroTitle: 'FahriXZ Store',
+        heroSubtitle: 'Toko Digital Premium - Layanan & Produk Digital Terlengkap',
+        heroCta: 'Lihat Produk',
+        trustSecure: 'Secure Payment',
+        trustFast: 'Fast Process',
+        trustOfficial: 'Official Store',
+        trustVerified: 'Verified Provider',
+        flashSaleTitle: 'Flash Sale',
+        hours: 'Jam', minutes: 'Menit', seconds: 'Detik',
+        catAll: 'Semua',
+        orderNow: 'Order Sekarang',
+        whyTitle: 'Mengapa Memilih Kami?',
+        whySubtitle: 'Keunggulan layanan FahriXZ Store',
+        whyFast: 'Fast Process', whyFastDesc: 'Pesanan diproses dalam hitungan menit',
+        whySecure: 'Secure & Trusted', whySecureDesc: 'Transaksi aman dengan enkripsi',
+        whySupport: '24/7 Support', whySupportDesc: 'Tim support siap membantu kapan saja',
+        whyOfficial: 'Official Handling', whyOfficialDesc: 'Semua produk dari sumber resmi',
+        testiTitle: 'Apa Kata Mereka?', testiSubtitle: 'Testimoni dari pelanggan kami',
+        testi1: 'Pelayanan sangat cepat dan aman. Sudah langganan disini dari tahun lalu, tidak pernah kecewa!',
+        testi2: 'Harga terbaik dan prosesnya super cepat. admin juga ramah dan fast respon.',
+        testi3: 'Upgrade upgrade dana disini paling aman dan cepat. Recommended banget buat semua orang yang mau upgrade dana premium!',
+        faqTitle: 'Pertanyaan Umum',
+        faq1q: 'Bagaimana cara memesan?', faq1a: 'Pilih produk yang diinginkan, klik tombol Order, lalu ikuti instruksi pembayaran. Pesanan akan diproses oleh admin setelah pembayaran dikonfirmasi.',
+        faq2q: 'Berapa lama prosesnya?', faq2a: 'Sebagian besar pesanan diproses dalam 5-15 menit. Pesanan dengan verifikasi tambahan mungkin membutuhkan waktu hingga 1-3 jam.',
+        faq3q: 'Apakah aman bertransaksi?', faq3a: 'Sangat aman. Kami menggunakan enkripsi SSL dan sistem keamanan berlapis untuk melindungi data dan transaksi Anda.',
+        faq4q: 'Metode pembayaran apa saja?', faq4a: 'Kami menerima transfer bank, e-wallet (Dana, OVO, GoPay, ShopeePay), QRIS, dan pembayaran via WhatsApp.',
+        faq5q: 'Bagaimana jika pesanan gagal?', faq5a: 'Jika pesanan gagal, uang Anda akan dikembalikan 100% atau bisa dipindahkan ke produk lain. Hubungi CS kami untuk bantuan.',
+        faq6q: 'bagaimana alur sistem transaksi nya untuk upgrade dompet digital?', faq6a: 'Pembeli melakukan pembayaran sesuai harga layanan yang dipilih. Setelah pembayaran berhasil, penjual melakukan konfirmasi pembayaran. Pembeli mengirimkan data yang diperlukan untuk proses upgrade. Penjual memproses upgrade akun/dompet digital sesuai pesanan. Selama proses berlangsung, penjual akan memberikan informasi perkembangan pesanan kepada pembeli. Setelah upgrade berhasil, penjual akan menghubungi pembeli dan mengirimkan bukti atau konfirmasi bahwa pesanan telah selesai diproses.
+Catatan: Pastikan data yang dikirimkan sudah benar untuk menghindari keterlambatan proses.',
+        footerDesc: 'Toko digital premium terpercaya untuk kebutuhan aplikasi, top-up, dan jasa digital Anda.',
+        footerQuick: 'Quick Links', footerHome: 'Beranda', footerProducts: 'Produk', footerProfile: 'Profil', footerLogin: 'Login',
+        footerHelp: 'Bantuan', footerPrivacy: 'Kebijakan Privasi', footerTerms: 'Syarat & Ketentuan', footerAbout: 'Tentang Kami',
+        footerContact: 'Kontak',
+        orderTitle: 'Detail Pesanan', orderProduct: 'Produk', orderPrice: 'Harga', orderQty: 'Quantity', orderId: 'ID Pesanan', orderStatus: 'Status',
+        orderViaWA: 'Pesan via WhatsApp',
+        csTitle: 'Customer Service', csOnline: 'Online - Siap membantu',
+        csGreeting: 'Halo! Ada yang bisa kami bantu? Silakan pilih pertanyaan umum di bawah atau ketik pesan Anda.',
+        csQ1: 'Cek Harga', csQ2: 'Cara Pesan', csQ3: 'Cek Status', csQ4: 'Metode Bayar',
+        navHome: 'Home', navTrack: 'Track', navActivity: 'Aktivitas', navMission: 'Misi', navProfile: 'Profil',
+        menuHome: 'Beranda', menuProducts: 'Produk', menuProfile: 'Profil', menuHistory: 'Riwayat', menuReferral: 'Referral', menuLogin: 'Login', menuSettings: 'Pengaturan'
+      },
+      en: {
+        promoText: 'Flash Sale! Up to 50% OFF',
+        heroBadge: 'Official Store',
+        heroTitle: 'FahriXZ Store',
+        heroSubtitle: 'Premium Digital Store - Complete Digital Services & Products',
+        heroCta: 'View Products',
+        trustSecure: 'Secure Payment', trustFast: 'Fast Process', trustOfficial: 'Official Store', trustVerified: 'Verified Provider',
+        flashSaleTitle: 'Flash Sale', hours: 'Hrs', minutes: 'Min', seconds: 'Sec',
+        catAll: 'All', orderNow: 'Order Now',
+        whyTitle: 'Why Choose Us?', whySubtitle: 'FahriXZ Store advantages',
+        whyFast: 'Fast Process', whyFastDesc: 'Orders processed in minutes',
+        whySecure: 'Secure & Trusted', whySecureDesc: 'Safe transactions with encryption',
+        whySupport: '24/7 Support', whySupportDesc: 'Support team ready anytime',
+        whyOfficial: 'Official Handling', whyOfficialDesc: 'All products from official sources',
+        testiTitle: 'What They Say?', testiSubtitle: 'Testimonials from our customers',
+        testi1: 'Very fast and safe service. Been a regular customer since last year, never disappointed!',
+        testi2: 'Best prices and super fast processing. CS is also friendly and very responsive.',
+        testi3: 'Top up e-wallet here is the cheapest and fastest. Highly recommended for everyone!',
+        faqTitle: 'Frequently Asked Questions',
+        faq1q: 'How to order?', faq1a: 'Select desired product, click Order button, then follow payment instructions. Order will be processed automatically after payment is confirmed.',
+        faq2q: 'How long does it take?', faq2a: 'Most orders are processed within 5-15 minutes. Orders with additional verification may take up to 1 hour.',
+        faq3q: 'Is it safe to transact?', faq3a: 'Very safe. We use SSL encryption and layered security systems to protect your data and transactions.',
+        faq4q: 'What payment methods?', faq4a: 'We accept bank transfer, e-wallets (Dana, OVO, GoPay, ShopeePay), QRIS, and payment via WhatsApp.',
+        faq5q: 'What if order fails?', faq5a: 'If order fails, your money will be refunded 100% or can be transferred to another product. Contact our CS for help.',
+        footerDesc: 'Trusted premium digital store for your app, top-up, and digital service needs.',
+        footerQuick: 'Quick Links', footerHome: 'Home', footerProducts: 'Products', footerProfile: 'Profile', footerLogin: 'Login',
+        footerHelp: 'Help', footerPrivacy: 'Privacy Policy', footerTerms: 'Terms & Conditions', footerAbout: 'About Us',
+        footerContact: 'Contact',
+        orderTitle: 'Order Details', orderProduct: 'Product', orderPrice: 'Price', orderQty: 'Quantity', orderId: 'Order ID', orderStatus: 'Status',
+        orderViaWA: 'Order via WhatsApp',
+        csTitle: 'Customer Service', csOnline: 'Online - Ready to help',
+        csGreeting: 'Hello! How can we help you? Please select a common question below or type your message.',
+        csQ1: 'Check Price', csQ2: 'How to Order', csQ3: 'Check Status', csQ4: 'Payment Methods',
+        navHome: 'Home', navTrack: 'Track', navActivity: 'Activity', navMission: 'Mission', navProfile: 'Profile',
+        menuHome: 'Home', menuProducts: 'Products', menuProfile: 'Profile', menuHistory: 'History', menuReferral: 'Referral', menuLogin: 'Login', menuSettings: 'Settings'
+      },
+      ms: { promoText: 'Jualan Kilat! Diskaun sehingga 50%', heroBadge: 'Kedai Rasmi', heroTitle: 'FahriXZ Store', heroSubtitle: 'Kedai Digital Premium - Perkhidmatan & Produk Digital Paling Lengkap', heroCta: 'Lihat Produk', catAll: 'Semua', orderNow: 'Order Sekarang', navHome: 'Laman', navTrack: 'Jejak', navActivity: 'Aktiviti', navMission: 'Misi', navProfile: 'Profil' },
+      ar: { promoText: 'تخفيضات فلاش! خصم يصل إلى 50٪', heroBadge: 'المتجر الرسمي', heroTitle: 'FahriXZ Store', heroSubtitle: 'متجر رقمي متميز - خدمات ومنتجات رقمية شاملة', heroCta: 'عرض المنتجات', catAll: 'الكل', orderNow: 'اطلب الآن', navHome: 'الرئيسية', navTrack: 'تتبع', navActivity: 'النشاط', navMission: 'مهمة', navProfile: 'الملف' },
+      ja: { promoText: 'フラッシュセール！最大50％オフ', heroBadge: '公式ストア', heroTitle: 'FahriXZ Store', heroSubtitle: 'プレミアムデジタルストア - 完全なデジタルサービスと製品', heroCta: '製品を見る', catAll: 'すべて', orderNow: '今すぐ注文', navHome: 'ホーム', navTrack: '追跡', navActivity: 'アクティビティ', navMission: 'ミッション', navProfile: 'プロフィール' },
+      ko: { promoText: '플래시 세일! 최대 50% 할인', heroBadge: '공식 스토어', heroTitle: 'FahriXZ Store', heroSubtitle: '프리미엄 디지털 스토어 - 완벽한 디지털 서비스 및 제품', heroCta: '제품 보기', catAll: '모두', orderNow: '지금 주문', navHome: '홈', navTrack: '추적', navActivity: '활동', navMission: '미션', navProfile: '프로필' },
+      zh: { promoText: '闪购！高达50%折扣', heroBadge: '官方商店', heroTitle: 'FahriXZ Store', heroSubtitle: '高级数字商店 - 完整的数字服务和产品', heroCta: '查看产品', catAll: '全部', orderNow: '立即订购', navHome: '首页', navTrack: '追踪', navActivity: '活动', navMission: '任务', navProfile: '个人资料' },
+      th: { promoText: 'เซล์แฟลช! ลดสูงสุด 50%', heroBadge: 'ร้านค้าอย่างเป็นทางการ', heroTitle: 'FahriXZ Store', heroSubtitle: 'ร้านค้าดิจิทัลพรีเมี่ยม - บริการและผลิตภัณฑ์ดิจิทัลที่สมบูรณ์', heroCta: 'ดูสินค้า', catAll: 'ทั้งหมด', orderNow: 'สั่งซื้อเลย', navHome: 'หน้าแรก', navTrack: 'ติดตาม', navActivity: 'กิจกรรม', navMission: 'ภารกิจ', navProfile: 'โปรไฟล์' },
+      vi: { promoText: 'Flash Sale! Giảm giá đến 50%', heroBadge: 'Cửa hàng chính thức', heroTitle: 'FahriXZ Store', heroSubtitle: 'Cửa hàng Kỹ thuật số Cao cấp - Dịch vụ & Sản phẩm Kỹ thuật số Đầy đủ', heroCta: 'Xem Sản phẩm', catAll: 'Tất cả', orderNow: 'Đặt hàng ngay', navHome: 'Trang chủ', navTrack: 'Theo dõi', navActivity: 'Hoạt động', navMission: 'Nhiệm vụ', navProfile: 'Hồ sơ' },
+      tl: { promoText: 'Flash Sale! Hanggang 50% OFF', heroBadge: 'Opisyal na Tindahan', heroTitle: 'FahriXZ Store', heroSubtitle: 'Premium Digital Store - Kumpletong Digital na Serbisyo at Produkto', heroCta: 'Tingnan ang Produkto', catAll: 'Lahat', orderNow: 'Umorder Ngayon', navHome: 'Bahay', navTrack: 'Track', navActivity: 'Aktibidad', navMission: 'Misyon', navProfile: 'Profile' }
+    };
+
+    function applyTranslations(lang) {
+      const t = translations[lang] || translations.id;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if (t[key]) el.textContent = t[key];
+      });
+    }
+
+    // Init
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedLang = localStorage.getItem('language') || 'id';
+      applyTranslations(savedLang);
+      updateWishlistBadge();
+    });
+
+    // Close lang dropdown on outside click
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.nav-icon-btn') && !e.target.closest('.lang-dropdown')) {
+        document.getElementById('langDropdown').classList.remove('open');
+      }
+    });
+
+    // CS Widget
+    function toggleCS() {
+      document.getElementById('csWidget').classList.toggle('open');
+      document.getElementById('csToggle').style.display = document.getElementById('csWidget').classList.contains('open') ? 'none' : 'flex';
+    }
+    function csSend() {
+      const input = document.getElementById('csInput');
+      const msg = input.value.trim();
+      if (!msg) return;
+      const body = document.getElementById('csBody');
+      body.innerHTML += `<div class="cs-message user"><p>${msg}</p></div>`;
+      input.value = '';
+      body.scrollTop = body.scrollHeight;
+      setTimeout(() => {
+        body.innerHTML += `<div class="cs-message bot"><p>Terima kasih! Tim kami akan segera merespons pesan Anda. Silakan hubungi via WhatsApp untuk respon lebih cepat.</p></div>`;
+        body.scrollTop = body.scrollHeight;
+      }, 1000);
+    }
+    function csQuickReply(type) {
+      const replies = {
+        price: 'Silakan pilih produk untuk melihat harga terbaru. Harga kami selalu kompetitif!',
+        process: '1. Pilih produk 2. Klik Order 3. Pesan via WhatsApp 4. Transfer 5. Proses otomatis',
+        status: 'Silakan masukkan ID pesanan Anda di halaman Track untuk cek status real-time.',
+        payment: 'Kami menerima: Transfer Bank, Dana, OVO, GoPay, ShopeePay, QRIS, dan WhatsApp.'
+      };
+      const body = document.getElementById('csBody');
+      body.innerHTML += `<div class="cs-message bot"><p>${replies[type]}</p></div>`;
+      body.scrollTop = body.scrollHeight;
+    }
+  </script>
+
+  <!-- PWA -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('pwa/sw.js')
+        .then(r => console.log('SW registered'))
+        .catch(e => console.log('SW failed', e));
+    }
+
+    // Install App
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+    });
+  </script>
+
+  <!-- Firebase Auth State -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyDjSUSuUWl6GOh_vJ-GnYV1tvguv0_pRXI",
+    authDomain: "fahrixzstore.firebaseapp.com",
+    databaseURL: "https://fahrixzstore-default-rtdb.firebaseio.com",
+    projectId: "fahrixzstore",
+    storageBucket: "fahrixzstore.firebasestorage.app",
+    messagingSenderId: "1070736619563",
+    appId: "1:1070736619563:web:735cdd57d5c90373e1526e",
+    measurementId: "G-H7QL79SSMX"
+  };
+
+
+    try {
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+
+      onAuthStateChanged(auth, (user) => {
+        const loginEl = document.getElementById('menuLogin');
+        if (user) {
+          if (loginEl) {
+            loginEl.innerHTML = loginEl.innerHTML.replace('Login', 'Akun');
+            loginEl.href = 'profil.html';
+          }
+        }
+      });
+    } catch (e) { console.log('Auth init ok'); }
+  </script>
+</body>
+</html>

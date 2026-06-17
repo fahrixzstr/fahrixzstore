@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tracking Order - FahriXZ Store</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/logo.svg">
+  <style>
+    .track-header { background: var(--gradient-primary); padding: 30px 20px; text-align: center; position: relative; overflow: hidden; }
+    .track-header::after { content: ''; position: absolute; inset: 0; background: url('assets/image/banner/banner2.jpg') center/cover; opacity: 0.15; }
+    .track-header h1 { position: relative; z-index: 2; font-size: 1.4rem; font-weight: 700; }
+    .track-header p { position: relative; z-index: 2; font-size: 13px; opacity: 0.9; margin-top: 5px; }
+    .track-container { padding: 20px; max-width: 600px; margin: 0 auto; }
+    .track-input-group { display: flex; gap: 10px; margin-bottom: 20px; }
+    .track-input-group input { flex: 1; padding: 14px 18px; background: var(--bg-glass); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); color: var(--text-primary); font-size: 14px; }
+    .track-input-group input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,217,255,0.1); }
+    .track-input-group button { padding: 14px 24px; background: var(--gradient-primary); border: none; border-radius: var(--radius-lg); color: var(--text-inverse); font-weight: 700; font-size: 14px; cursor: pointer; transition: var(--transition-base); }
+    .track-input-group button:hover { transform: scale(1.02); box-shadow: var(--shadow-glow); }
+    .track-result { display: none; }
+    .track-result.show { display: block; animation: fadeUp 0.4s ease; }
+    .track-status-card { background: var(--bg-card); border: 1px solid var(--border-accent); border-radius: var(--radius-xl); padding: 24px; margin-bottom: 16px; }
+    .track-status-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .track-status-icon { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+    .track-status-icon.pending { background: rgba(245,158,11,0.2); }
+    .track-status-icon.processing { background: rgba(0,217,255,0.2); }
+    .track-status-icon.completed { background: rgba(34,197,94,0.2); }
+    .track-status-icon.cancelled { background: rgba(239,68,68,0.2); }
+    .track-status-info h3 { font-size: 16px; font-weight: 700; }
+    .track-status-info p { font-size: 13px; color: var(--text-secondary); }
+    .track-timeline { position: relative; padding-left: 30px; }
+    .track-timeline::before { content: ''; position: absolute; left: 10px; top: 0; bottom: 0; width: 2px; background: var(--border-subtle); }
+    .timeline-item { position: relative; padding-bottom: 20px; }
+    .timeline-item::before { content: ''; position: absolute; left: -24px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: var(--border-subtle); border: 2px solid var(--bg-dark); }
+    .timeline-item.active::before { background: var(--primary); box-shadow: 0 0 0 3px rgba(0,217,255,0.3); }
+    .timeline-item.completed::before { background: var(--success); }
+    .timeline-item h4 { font-size: 13px; font-weight: 600; }
+    .timeline-item p { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+    .track-error { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); border-radius: var(--radius-lg); padding: 20px; text-align: center; }
+    .track-error p { font-size: 14px; color: var(--error); }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar glass-nav">
+    <div class="navbar-brand">
+      <button onclick="history.back()" style="background:none;border:none;color:var(--text-primary);margin-right:10px;cursor:pointer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </button>
+      <h1>Cek Pesanan</h1>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <div class="track-header">
+    <h1>📦 Tracking Order</h1>
+    <p>Cek status pesanan Anda secara real-time</p>
+  </div>
+
+  <!-- Banner -->
+  <div style="margin:15px 20px;border-radius:var(--radius-lg);overflow:hidden">
+    <img src="assets/image/banner/banner2.jpg" alt="Banner" style="width:100%;aspect-ratio:16/4;object-fit:cover" onerror="this.style.display='none'">
+  </div>
+
+  <div class="track-container">
+    <!-- Input -->
+    <div class="track-input-group">
+      <input type="text" id="trackId" placeholder="Masukkan ID Pesanan (contoh: FXZ-ID2210...)" onkeypress="if(event.key==='Enter')trackOrder()">
+      <button onclick="trackOrder()">Cek</button>
+    </div>
+
+    <!-- Result -->
+    <div id="trackResult" class="track-result">
+      <!-- Will be populated by JS -->
+    </div>
+
+    <!-- Error -->
+    <div id="trackError" class="track-error" style="display:none">
+      <p>❌ Pesanan tidak ditemukan, harap periksa nomor ID Anda kembali.</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer style="padding:30px 20px;text-align:center;border-top:1px solid var(--border-subtle);margin-bottom:60px;margin-top:40px">
+    <p style="font-size:12px;color:var(--text-muted)">Masukkan ID pesanan untuk melihat status terkini</p>
+  </footer>
+
+  <!-- Bottom Nav -->
+  <nav class="bottom-nav">
+    <a href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Home</span></a>
+    <a href="tracking.html" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M9 12l2 2 4-4"/></svg><span>Track</span></a>
+    <a href="profil.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Profil</span></a>
+  </nav>
+
+  <!-- Toast -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDjSUSuUWl6GOh_vJ-GnYV1tvguv0_pRXI",
+      authDomain: "fahrixzstore.firebaseapp.com",
+      databaseURL: "https://fahrixzstore-default-rtdb.firebaseio.com",
+      projectId: "fahrixzstore"
+    };
+
+    let db;
+    try {
+      const app = initializeApp(firebaseConfig);
+      db = getDatabase(app);
+    } catch (e) { console.log('Firebase init ok'); }
+
+    window.trackOrder = async function() {
+      const orderId = document.getElementById('trackId').value.trim().toUpperCase();
+      if (!orderId) {
+        showToast('Masukkan ID pesanan', 'warning');
+        return;
+      }
+
+      const resultEl = document.getElementById('trackResult');
+      const errorEl = document.getElementById('trackError');
+
+      resultEl.classList.remove('show');
+      errorEl.style.display = 'none';
+
+      // Show loading
+      resultEl.innerHTML = '<div style="text-align:center;padding:40px"><div class="skeleton skeleton-circle" style="margin:0 auto;width:48px;height:48px"></div><p style="margin-top:16px;color:var(--text-secondary);font-size:13px">Mencari pesanan...</p></div>';
+      resultEl.classList.add('show');
+
+      try {
+        // Check Firebase first
+        let orderData = null;
+        if (db) {
+          const orderRef = ref(db, 'orders/' + orderId);
+          const snapshot = await get(orderRef);
+          if (snapshot.exists()) {
+            orderData = snapshot.val();
+          }
+        }
+
+        // If not found in Firebase, check localStorage (recent orders)
+        if (!orderData) {
+          const localOrders = JSON.parse(localStorage.getItem('orders') || '[]');
+          orderData = localOrders.find(o => o.id === orderId);
+        }
+
+        if (!orderData) {
+          resultEl.classList.remove('show');
+          errorEl.style.display = 'block';
+          return;
+        }
+
+        // Show result
+        const status = orderData.status || 'pending';
+        const statusConfig = {
+          pending: { icon: '⏳', class: 'pending', text: 'Menunggu Pembayaran', desc: 'Pesanan Anda sedang menunggu konfirmasi pembayaran' },
+          processing: { icon: '⚙️', class: 'processing', text: 'Sedang Diproses', desc: 'Pesanan Anda sedang dalam proses' },
+          completed: { icon: '✅', class: 'completed', text: 'Selesai', desc: 'Pesanan Anda telah berhasil diproses' },
+          cancelled: { icon: '❌', class: 'cancelled', text: 'Dibatalkan', desc: 'Pesanan Anda telah dibatalkan' }
+        };
+        const sc = statusConfig[status] || statusConfig.pending;
+
+        const timeline = [
+          { step: 'Pesanan Dibuat', time: orderData.createdAt || new Date().toLocaleString('id-ID'), active: true, completed: true },
+          { step: 'Pembayaran Diterima', time: status !== 'pending' ? 'Terverifikasi' : 'Menunggu', active: status !== 'pending', completed: status !== 'pending' },
+          { step: 'Pesanan Diproses', time: status === 'processing' || status === 'completed' ? 'Sedang diproses' : 'Menunggu', active: status === 'processing' || status === 'completed', completed: status === 'completed' },
+          { step: 'Pesanan Selesai', time: status === 'completed' ? 'Selesai' : 'Menunggu', active: status === 'completed', completed: status === 'completed' }
+        ];
+
+        resultEl.innerHTML = `
+          <div class="track-status-card">
+            <div class="track-status-header">
+              <div class="track-status-icon ${sc.class}">${sc.icon}</div>
+              <div class="track-status-info">
+                <h3>${sc.text}</h3>
+                <p>${sc.desc}</p>
+              </div>
+            </div>
+            <div class="track-detail-row" style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border-subtle);font-size:14px">
+              <span style="color:var(--text-secondary)">ID Pesanan</span>
+              <span style="font-weight:600;font-family:monospace">${orderId}</span>
+            </div>
+            <div class="track-detail-row" style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border-subtle);font-size:14px">
+              <span style="color:var(--text-secondary)">Produk</span>
+              <span style="font-weight:600">${orderData.produk || orderData.product || '-'}</span>
+            </div>
+            <div class="track-detail-row" style="display:flex;justify-content:space-between;padding:10px 0;font-size:14px">
+              <span style="color:var(--text-secondary)">Total</span>
+              <span style="font-weight:600;color:var(--primary)">${orderData.price || orderData.harga || orderData.total || '-'}</span>
+            </div>
+          </div>
+          <div class="track-status-card">
+            <h3 style="font-size:14px;margin-bottom:16px">📋 Timeline</h3>
+            <div class="track-timeline">
+              ${timeline.map(t => `
+                <div class="timeline-item ${t.completed ? 'completed' : ''} ${t.active && !t.completed ? 'active' : ''}">
+                  <h4>${t.step}</h4>
+                  <p>${t.time}</p>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+        resultEl.classList.add('show');
+
+      } catch (error) {
+        console.error('Track error:', error);
+        resultEl.classList.remove('show');
+        errorEl.style.display = 'block';
+      }
+    };
+  </script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('pwa/sw.js').then(r => console.log('SW registered')).catch(e => console.log('SW failed'));
+    }
+  </script>
+</body>
+</html>

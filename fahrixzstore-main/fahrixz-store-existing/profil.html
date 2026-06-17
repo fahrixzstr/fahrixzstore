@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profil - FahriXZ Store</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animation.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/logo.svg">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar glass-nav">
+    <div class="navbar-brand">
+      <a href="index.html" style="display:flex;align-items:center;gap:10px;text-decoration:none">
+        <img src="assets/logo.svg" alt="Logo" style="width:36px;height:36px;border-radius:12px" onerror="this.style.display='none'">
+        <h1>FahriXZ</h1>
+      </a>
+    </div>
+    <div class="nav-search" style="max-width:300px">
+      <input type="search" placeholder="Cari produk..." id="searchInput" onkeyup="searchProducts()">
+      <button class="search-btn" onclick="searchProducts()">🔍</button>
+    </div>
+    <div class="nav-icons">
+      <button class="nav-icon-btn" onclick="location.href='profil.html'" title="Edit Profil">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Profile Header -->
+  <div style="background:var(--gradient-dark);padding:40px 20px;text-align:center;position:relative;overflow:hidden">
+    <div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(0,217,255,0.08),transparent 60%)"></div>
+    <div style="position:relative;z-index:2">
+      <div style="width:80px;height:80px;border-radius:50%;background:var(--gradient-primary);display:flex;align-items:center;justify-content:center;margin:0 auto 15px;font-size:32px">
+        👤
+      </div>
+      <h2 id="userName" style="font-size:1.3rem;font-weight:700;margin-bottom:5px">Masuk / Daftar</h2>
+      <p id="userEmail" style="color:var(--text-secondary);font-size:13px">Login untuk mengakses fitur lengkap</p>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:20px;margin-top:-20px;position:relative;z-index:3">
+    <div class="glass-card" style="padding:16px;text-align:center">
+      <h3 id="orderCount" style="font-size:22px;color:var(--primary);font-weight:700">0</h3>
+      <p style="font-size:11px;color:var(--text-secondary)">Pesanan</p>
+    </div>
+    <div class="glass-card" style="padding:16px;text-align:center">
+      <h3 id="saldoAmount" style="font-size:22px;color:var(--primary);font-weight:700">Rp0</h3>
+      <p style="font-size:11px;color:var(--text-secondary)">Saldo</p>
+    </div>
+    <div class="glass-card" style="padding:16px;text-align:center">
+      <h3 id="referralCount" style="font-size:22px;color:var(--primary);font-weight:700">0</h3>
+      <p style="font-size:11px;color:var(--text-secondary)">Referral</p>
+    </div>
+  </div>
+
+  <!-- Install App -->
+  <div class="glass-card" style="margin:0 20px 15px;padding:15px 20px;display:flex;align-items:center;gap:15px;cursor:pointer" onclick="installApp()">
+    <span style="font-size:24px">📱</span>
+    <div style="flex:1">
+      <div style="font-weight:600;font-size:14px">Install App</div>
+      <div style="font-size:12px;color:var(--text-secondary)">Tambahkan ke layar utama</div>
+    </div>
+    <span style="color:var(--primary);font-size:18px">›</span>
+  </div>
+
+  <!-- Menu -->
+  <div style="margin:0 20px">
+    <div class="menu-section" style="background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-xl);overflow:hidden;margin-bottom:15px">
+      <div class="menu-item" onclick="location.href='history.html'">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span>Riwayat Pesanan</span>
+        <span style="margin-left:auto;color:var(--text-muted);font-size:12px">›</span>
+      </div>
+      <div class="menu-item" onclick="location.href='referral.html'">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span>Referral Saya</span>
+        <span style="margin-left:auto;color:var(--text-muted);font-size:12px">›</span>
+      </div>
+      <div class="menu-item" onclick="location.href='product.html'">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span>Lihat Produk</span>
+        <span style="margin-left:auto;color:var(--text-muted);font-size:12px">›</span>
+      </div>
+      <div class="menu-item" onclick="location.href='settings.html'">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <span>Pengaturan</span>
+        <span style="margin-left:auto;color:var(--text-muted);font-size:12px">›</span>
+      </div>
+      <div class="menu-item" onclick="location.href='privacy.html'">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span>Kebijakan Privasi</span>
+        <span style="margin-left:auto;color:var(--text-muted);font-size:12px">›</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logout Button -->
+  <div style="padding:0 20px 20px">
+    <button id="logoutBtn" onclick="logout()" style="display:none;width:100%;padding:14px;background:linear-gradient(135deg,#ef4444,#dc2626);color:white;border:none;border-radius:var(--radius-lg);font-weight:600;font-size:14px;cursor:pointer;transition:all 0.3s">
+      🚪 Keluar
+    </button>
+    <a href="login.html" id="loginBtn" style="display:block;width:100%;padding:14px;background:var(--gradient-primary);color:var(--text-inverse);text-align:center;border-radius:var(--radius-lg);font-weight:600;font-size:14px;text-decoration:none">
+      🔑 Masuk / Daftar
+    </a>
+  </div>
+
+  <!-- About -->
+  <div class="glass-card" style="margin:0 20px 20px;padding:20px">
+    <h3 style="font-size:14px;margin-bottom:10px">🛒 FahriXZ Store</h3>
+    <p style="font-size:12px;color:var(--text-secondary);line-height:1.6">Toko digital premium Indonesia. Menyediakan layanan upgrade e-wallet, streaming, AI tools, jasa edit, dan produk digital lainnya dengan harga terbaik.</p>
+  </div>
+
+  <!-- Products Section (Lihat Produk - desain sama seperti home) -->
+  <div style="padding:20px">
+    <h2 style="font-size:1.2rem;font-weight:700;margin-bottom:15px">🔥 Produk Populer</h2>
+    <div id="productGrid" class="product-grid" style="padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px"></div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer" style="margin-bottom:60px;padding:40px 20px 20px">
+    <div style="text-align:center">
+      <p style="font-size:12px;color:var(--text-muted)">&copy; 2025 FahriXZ Store. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Floating Buttons -->
+  <a href="https://wa.me/6285609949819" class="floating-wa" target="_blank" style="bottom:80px">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.008-.57-.008-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <button class="cs-toggle" onclick="toggleCS()" style="bottom:150px;right:20px">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  </button>
+
+  <!-- CS Widget -->
+  <div class="cs-widget" id="csWidget">
+    <div class="cs-header">
+      <div class="avatar">🎧</div>
+      <div class="info"><h4>Customer Service</h4><p>Online</p></div>
+    </div>
+    <div class="cs-body" id="csBody">
+      <div class="cs-message bot">
+        <p>Halo! Ada yang bisa kami bantu?</p>
+        <div class="cs-quick-replies">
+          <button class="cs-quick-btn" onclick="csQuickReply('price')">Cek Harga</button>
+          <button class="cs-quick-btn" onclick="csQuickReply('process')">Cara Pesan</button>
+          <button class="cs-quick-btn" onclick="csQuickReply('status')">Cek Status</button>
+        </div>
+      </div>
+    </div>
+    <div class="cs-input">
+      <input type="text" id="csInput" placeholder="Ketik pesan..." onkeypress="if(event.key==='Enter')csSend()">
+      <button onclick="csSend()">➤</button>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Bottom Nav -->
+  <nav class="bottom-nav">
+    <a href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Home</span></a>
+    <a href="tracking.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M9 12l2 2 4-4"/></svg><span>Track</span></a>
+    <a href="profil.html" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Profil</span></a>
+  </nav>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script src="js/product.js"></script>
+  <script src="js/search.js"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDjSUSuUWl6GOh_vJ-GnYV1tvguv0_pRXI",
+      authDomain: "fahrixzstore.firebaseapp.com",
+      projectId: "fahrixzstore",
+      appId: "1:1070736619563:web:735cdd57d5c90373e1526e"
+    };
+
+    try {
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          document.getElementById('userName').textContent = user.displayName || 'User';
+          document.getElementById('userEmail').textContent = user.email || 'Logged in';
+          document.getElementById('logoutBtn').style.display = 'block';
+          document.getElementById('loginBtn').style.display = 'none';
+
+          try {
+            const userDoc = await getDoc(doc(db, "users", user.uid));
+            if (userDoc.exists()) {
+              const data = userDoc.data();
+              document.getElementById('saldoAmount').textContent = 'Rp' + (data.saldo || 0).toLocaleString('id-ID');
+              document.getElementById('orderCount').textContent = data.orderCount || 0;
+              document.getElementById('referralCount').textContent = data.referralCount || 0;
+            }
+          } catch (e) { console.log('User data not available'); }
+        } else {
+          document.getElementById('userName').textContent = 'Masuk / Daftar';
+          document.getElementById('userEmail').textContent = 'Login untuk mengakses fitur lengkap';
+          document.getElementById('logoutBtn').style.display = 'none';
+          document.getElementById('loginBtn').style.display = 'block';
+        }
+      });
+
+      window.logout = async function() {
+        if (confirm('Yakin ingin keluar?')) {
+          await signOut(auth);
+          localStorage.removeItem('user');
+          showToast('Berhasil keluar', 'success');
+          setTimeout(() => location.href = 'login.html', 800);
+        }
+      };
+    } catch (error) {
+      console.error('Firebase error:', error);
+      window.logout = function() {
+        localStorage.removeItem('user');
+        location.href = 'login.html';
+      };
+    }
+  </script>
+
+  <script>
+    // Render products on profile page
+    document.addEventListener('DOMContentLoaded', () => {
+      const grid = document.getElementById('productGrid');
+      if (grid && typeof products !== 'undefined') {
+        // Show 6 products
+        const popularProducts = products.slice(0, 6);
+        grid.innerHTML = popularProducts.map((p, i) => `
+          <div class="product-card" style="animation-delay:${i * 0.05}s">
+            <div class="image-wrapper">
+              <img src="${p.image}" alt="${p.name}" onerror="this.src='assets/image/placeholder.jpg'" loading="lazy">
+              <span class="badge badge-${p.badge.toLowerCase().replace(/\s+/g, '-')}">${p.badge}</span>
+            </div>
+            <div class="product-info">
+              <h3>${p.name}</h3>
+              <div class="rating">
+                <span class="rating-stars">★★★★★</span>
+                <span class="rating-count">(${p.reviews.toLocaleString()})</span>
+              </div>
+              <div class="price-row">
+                <span class="price">${p.price}</span>
+              </div>
+              <button class="order-btn" onclick="openOrderModal('${p.name}', '${p.price}')">Order</button>
+            </div>
+          </div>
+        `).join('');
+      }
+    });
+  </script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('pwa/sw.js').then(r => console.log('SW registered')).catch(e => console.log('SW failed'));
+    }
+  </script>
+</body>
+</html>

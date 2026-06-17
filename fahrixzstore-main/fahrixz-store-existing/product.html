@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produk - FahriXZ Store</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/logo.svg">
+  <style>
+    .product-header { background: var(--gradient-primary); padding: 30px 20px; text-align: center; }
+    .product-header h1 { font-size: 1.5rem; font-weight: 700; }
+    .product-header p { font-size: 13px; opacity: 0.9; margin-top: 5px; }
+    .search-bar { padding: 15px 20px; }
+    .search-bar input { width: 100%; padding: 14px 20px; background: var(--bg-glass); border: 1px solid var(--border-subtle); border-radius: var(--radius-full); color: var(--text-primary); font-size: 14px; }
+    .search-bar input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,217,255,0.1); }
+    .search-bar input::placeholder { color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar glass-nav">
+    <div class="navbar-brand">
+      <button onclick="history.back()" style="background:none;border:none;color:var(--text-primary);margin-right:10px;cursor:pointer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </button>
+      <h1>Semua Produk</h1>
+    </div>
+    <div class="nav-icons">
+      <button class="nav-icon-btn" onclick="location.href='notification.html'">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Search -->
+  <div class="search-bar">
+    <input type="search" placeholder="Cari produk..." id="searchInput" onkeyup="searchProducts()">
+  </div>
+
+  <!-- Category Filter -->
+  <div class="category-filter">
+    <button class="filter-btn active" data-category="all" onclick="filterProducts('all')">Semua</button>
+    <button class="filter-btn" data-category="ewallet" onclick="filterProducts('ewallet')">E-Wallet</button>
+    <button class="filter-btn" data-category="streaming" onclick="filterProducts('streaming')">Streaming</button>
+    <button class="filter-btn" data-category="ai" onclick="filterProducts('ai')">AI Tools</button>
+    <button class="filter-btn" data-category="editing" onclick="filterProducts('editing')">Editing</button>
+    <button class="filter-btn" data-category="service" onclick="filterProducts('service')">Jasa</button>
+  </div>
+
+  <!-- Products -->
+  <div class="product-grid" id="productGrid"></div>
+
+  <!-- Order Modal -->
+  <div class="order-modal-overlay" id="orderModal">
+    <div class="order-modal">
+      <div class="order-modal-header">
+        <h2>Detail Pesanan</h2>
+        <button class="order-modal-close" onclick="closeOrderModal()">✕</button>
+      </div>
+      <div class="order-modal-body">
+        <div class="order-detail-row"><span class="label">Produk</span><span class="value" id="modalProduct">-</span></div>
+        <div class="order-detail-row"><span class="label">Harga</span><span class="value" id="modalPrice">-</span></div>
+        <div class="order-detail-row"><span class="label">Quantity</span><span class="value">x1</span></div>
+        <div class="order-detail-row"><span class="label">ID Pesanan</span><span class="value id" id="modalOrderId">-</span></div>
+      </div>
+      <div class="order-modal-footer">
+        <button class="btn-whatsapp" onclick="sendOrderToWhatsApp()">📱 Pesan via WhatsApp</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Nav -->
+  <nav class="bottom-nav">
+    <a href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Home</span></a>
+    <a href="tracking.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M9 12l2 2 4-4"/></svg><span>Track</span></a>
+    <a href="profil.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Profil</span></a>
+  </nav>
+
+  <!-- Toast -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="js/app.js"></script>
+  <script src="js/product.js"></script>
+  <script src="js/search.js"></script>
+  <script>
+    // Render products on load
+    document.addEventListener('DOMContentLoaded', () => {
+  renderProducts(products);
+
+  const skeleton = document.getElementById('skeletonLoader');
+  if (skeleton) {
+    skeleton.remove();
+  }
+});
+
+    document.getElementById('orderModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('orderModal')) closeOrderModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeOrderModal();
+    });
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('pwa/sw.js').then(r => console.log('SW registered')).catch(e => console.log('SW failed'));
+    }
+  </script>
+</body>
+</html>

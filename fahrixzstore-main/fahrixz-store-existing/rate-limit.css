@@ -1,0 +1,40 @@
+/* =========================
+RATE LIMIT NOTIFICATION
+============================ */
+
+.rate-limit-warning {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+  padding: 15px 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  display: none;
+  animation: shake 0.5s ease-in-out;
+}
+
+.rate-limit-warning.show {
+  display: block;
+}
+
+.rate-limit-timer {
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+.login-attempts {
+  text-align: center;
+  color: var(--text-gray);
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.login-attempts.danger {
+  color: #ef4444;
+  font-weight: 600;
+}
